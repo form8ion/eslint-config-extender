@@ -1,0 +1,6 @@
+_extends: .github
+repository:
+  name: eslint-config-extender
+  description: shareable ESLint config scaffolder for extending another config
+  homepage: 'https://npm.im/@form8ion/eslint-config-extender'
+  private: false

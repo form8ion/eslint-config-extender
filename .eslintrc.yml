@@ -1,0 +1,9 @@
+extends:
+  - '@form8ion'
+  - '@form8ion/mocha'
+  - '@form8ion/cucumber'
+
+overrides:
+  - files: example.js
+    rules:
+      import/no-extraneous-dependencies: off
