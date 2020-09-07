@@ -1,7 +1,14 @@
+import {promises as fs} from 'fs';
 import writeYaml from '../thirdparty-wrappers/write-yaml';
 
 export default async function ({projectRoot, scope, projectName}) {
-  await writeYaml(`${projectRoot}/.eslintrc.yml`, {root: true, extends: [`@${scope}`, '.']});
+  await Promise.all([
+    writeYaml(`${projectRoot}/.eslintrc.yml`, {root: true, extends: [`@${scope}`, '.']}),
+    fs.writeFile(
+      `${projectRoot}/index.js`,
+      `module.exports = {extends: '@form8ion/${projectName.substring('eslint-config-'.length)}'};`
+    )
+  ]);
 
   return {
     scripts: {'lint:js': 'eslint .'},
