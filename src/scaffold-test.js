@@ -36,6 +36,14 @@ suite('scaffold', () => {
     assert.deepEqual(scripts, {'lint:js': 'eslint .'});
     assert.deepEqual(dependencies, [`@form8ion/${projectName}`]);
     assert.deepEqual(devDependencies, [`@${scope}/eslint-config`]);
-    assert.deepEqual(nextSteps, [{summary: 'Save the extended `@form8ion` eslint-config as an exact version'}]);
+    assert.deepEqual(
+      nextSteps,
+      [
+        {summary: 'Save the extended `@form8ion` eslint-config as an exact version'},
+        {summary: 'Document saving this config using the dev flag'},
+        {summary: 'Replace the code example in the README with a config example'},
+        {summary: 'Link to the extended `@form8ion` config in the README'}
+      ]
+    );
   });
 });
