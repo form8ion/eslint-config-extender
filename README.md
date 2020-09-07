@@ -51,7 +51,8 @@ import {scaffold} from '@form8ion/eslint-config-extender';
 (async () => {
   await scaffold({
     projectRoot: process.cwd(),
-    scope: 'form8ion'
+    projectName: 'eslint-config-foo',
+    scope: 'bar'
   });
 })();
 ```
