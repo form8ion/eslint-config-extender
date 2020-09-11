@@ -15,6 +15,8 @@
 * [Usage](#usage)
   * [Installation](#installation)
   * [Example](#example)
+    * [Import](#import)
+    * [Execute](#execute)
 * [Contributing](#contributing)
   * [Dependencies](#dependencies)
   * [Verification](#verification)
@@ -47,7 +49,11 @@ import {scaffold} from '@form8ion/eslint-config-extender';
 
 ```javascript
 (async () => {
-  await scaffold({projectRoot: process.cwd()});
+  await scaffold({
+    projectRoot: process.cwd(),
+    projectName: 'eslint-config-foo',
+    scope: 'bar'
+  });
 })();
 ```
 

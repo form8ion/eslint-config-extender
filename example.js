@@ -9,5 +9,9 @@ stubbedFs();
 // #### Execute
 
 (async () => {
-  await scaffold({projectRoot: process.cwd()});
+  await scaffold({
+    projectRoot: process.cwd(),
+    projectName: 'eslint-config-foo',
+    scope: 'bar'
+  });
 })();
