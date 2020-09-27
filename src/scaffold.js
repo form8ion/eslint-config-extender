@@ -6,7 +6,7 @@ export default async function ({projectRoot, scope, projectName}) {
     writeYaml(`${projectRoot}/.eslintrc.yml`, {root: true, extends: [`@${scope}`, '.']}),
     fs.writeFile(
       `${projectRoot}/index.js`,
-      `module.exports = {extends: '@form8ion/${projectName.substring('eslint-config-'.length)}'};`
+      `module.exports = {extends: '@form8ion/${projectName.substring('eslint-config-'.length)}'};\n`
     )
   ]);
 

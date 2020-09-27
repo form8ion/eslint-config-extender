@@ -31,7 +31,7 @@ suite('scaffold', () => {
     assert.calledWith(
       fs.writeFile,
       `${projectRoot}/index.js`,
-      `module.exports = {extends: '@form8ion/${configShortName}'};`
+      `module.exports = {extends: '@form8ion/${configShortName}'};\n`
     );
     assert.deepEqual(scripts, {'lint:js': 'eslint .'});
     assert.deepEqual(dependencies, [`@form8ion/${projectName}`]);
