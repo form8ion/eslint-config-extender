@@ -13,8 +13,8 @@ export default function (options, javascriptScaffolderFactory) {
         languages: {
           [javaScriptLanguageChoice]: javascriptScaffolderFactory({
             [jsQuestionNames.PROJECT_TYPE]: 'Package',
-            unitTests: false,
-            integrationTests: false,
+            [jsQuestionNames.UNIT_TESTS]: false,
+            [jsQuestionNames.INTEGRATION_TESTS]: false,
             [jsQuestionNames.TRANSPILE_LINT]: false
           })
         }

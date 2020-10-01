@@ -24,8 +24,8 @@ suite('high-level scaffolder', () => {
     javascriptScaffolderFactory
       .withArgs({
         [javascriptScaffolder.questionNames.PROJECT_TYPE]: 'Package',
-        unitTests: false,
-        integrationTests: false,
+        [javascriptScaffolder.questionNames.UNIT_TESTS]: false,
+        [javascriptScaffolder.questionNames.INTEGRATION_TESTS]: false,
         [javascriptScaffolder.questionNames.TRANSPILE_LINT]: false
       })
       .returns(jsScaffolder);

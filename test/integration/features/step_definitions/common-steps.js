@@ -70,7 +70,7 @@ When('the high-level scaffolder is executed', async function () {
           [jsQuestionNames.AUTHOR_NAME]: any.word(),
           [jsQuestionNames.AUTHOR_EMAIL]: any.email(),
           [jsQuestionNames.AUTHOR_URL]: any.url(),
-          ciService: 'Other'
+          [jsQuestionNames.CI_SERVICE]: 'Other'
         }
       })
     );
