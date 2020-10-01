@@ -42,10 +42,12 @@ $ npm install @form8ion/eslint-config-extender --save-prod
 #### Import
 
 ```javascript
-import {scaffold} from '@form8ion/eslint-config-extender';
+import {scaffold, extendEslintConfig} from '@form8ion/eslint-config-extender';
 ```
 
 #### Execute
+
+##### Scaffolder Plugin
 
 ```javascript
 (async () => {
@@ -54,6 +56,14 @@ import {scaffold} from '@form8ion/eslint-config-extender';
     projectName: 'eslint-config-foo',
     scope: 'bar'
   });
+})();
+```
+
+##### High-Level Scaffolder
+
+```javascript
+(async () => {
+  await extendEslintConfig();
 })();
 ```
 
