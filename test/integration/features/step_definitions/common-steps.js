@@ -12,6 +12,10 @@ const debug = require('debug')('test');
 Before(async function () {
   nock.disableNetConnect();
 
+  // work around for overly aggressive mock-fs, see:
+  // https://github.com/tschaub/mock-fs/issues/213#issuecomment-347002795
+  require('validate-npm-package-name'); // eslint-disable-line import/no-extraneous-dependencies
+
   this.shell = td.replace('shelljs');
   this.execa = td.replace('execa');
 
@@ -25,16 +29,7 @@ Before(async function () {
   scaffoldJs = jsScaffolder.scaffold;
 
   stubbedFs({
-    node_modules: {
-      ...stubbedFs.load(resolve(__dirname, '../../../../', 'node_modules')),
-      'validate-npm-package-name': {
-        node_modules: {
-          builtins: {
-            'builtins.json': JSON.stringify(any.listOf(any.word))
-          }
-        }
-      }
-    }
+    node_modules: stubbedFs.load(resolve(__dirname, '../../../../', 'node_modules'))
   });
 });
 

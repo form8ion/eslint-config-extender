@@ -34,6 +34,8 @@
     "test:integration:debug": "DEBUG=test run-s test:integration",
     "pretest:integration:wip": "preview",
     "test:integration:wip": "run-s 'test:integration:base -- --profile wip'",
+    "pretest:integration:wip:debug": "preview",
+    "test:integration:wip:debug": "DEBUG=test run-s 'test:integration:wip'",
     "test:integration:focus": "run-s 'test:integration:base -- --profile focus'",
     "clean": "rimraf ./lib",
     "prebuild": "run-s clean",
