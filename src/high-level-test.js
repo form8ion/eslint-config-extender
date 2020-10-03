@@ -3,6 +3,7 @@ import * as javascriptScaffolder from '@travi/javascript-scaffolder';
 import sinon from 'sinon';
 import {assert} from 'chai';
 import any from '@travi/any';
+import {PLUGIN_NAME} from './constants';
 import extendEslintConfig from './high-level';
 
 suite('high-level scaffolder', () => {
@@ -24,6 +25,7 @@ suite('high-level scaffolder', () => {
     javascriptScaffolderFactory
       .withArgs({
         [javascriptScaffolder.questionNames.PROJECT_TYPE]: 'Package',
+        [javascriptScaffolder.questionNames.PROJECT_TYPE_CHOICE]: PLUGIN_NAME,
         [javascriptScaffolder.questionNames.UNIT_TESTS]: false,
         [javascriptScaffolder.questionNames.INTEGRATION_TESTS]: false,
         [javascriptScaffolder.questionNames.TRANSPILE_LINT]: false
