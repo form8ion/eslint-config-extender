@@ -6,10 +6,14 @@ import {prompt, scaffold as githubScaffolder} from '@travi/github-scaffolder';
 import any from '@travi/any';
 import {After, Before, When} from 'cucumber';
 
-let extendEslintConfig, projectQuestionNames, jsQuestionNames, scaffoldJs;
+let pluginName, extendEslintConfig, scaffoldEslintConfig, projectQuestionNames, jsQuestionNames, scaffoldJs;
 const debug = require('debug')('test');
 
 Before(async function () {
+  this.configName = any.word();
+  this.projectName = `eslint-config-${this.configName}`;
+  this.scope = any.word();
+
   nock.disableNetConnect();
 
   // work around for overly aggressive mock-fs, see:
@@ -24,6 +28,8 @@ Before(async function () {
   const projectScaffolder = require('@travi/project-scaffolder');
   const jsScaffolder = require('@travi/javascript-scaffolder');
   extendEslintConfig = configExtender.extendEslintConfig;
+  scaffoldEslintConfig = configExtender.scaffold;
+  pluginName = configExtender.PLUGIN_NAME;
   projectQuestionNames = projectScaffolder.questionNames;
   jsQuestionNames = jsScaffolder.questionNames;
   scaffoldJs = jsScaffolder.scaffold;
@@ -47,7 +53,7 @@ When('the high-level scaffolder is executed', async function () {
     await extendEslintConfig(
       {
         decisions: {
-          [projectQuestionNames.PROJECT_NAME]: any.word(),
+          [projectQuestionNames.PROJECT_NAME]: this.projectName,
           [projectQuestionNames.DESCRIPTION]: any.sentence(),
           [projectQuestionNames.VISIBILITY]: any.fromList(['Public', 'Private']),
           [projectQuestionNames.GIT_REPO]: true,
@@ -59,13 +65,15 @@ When('the high-level scaffolder is executed', async function () {
       decisions => options => scaffoldJs({
         ...options,
         unitTestFrameworks: {},
+        packageTypes: {[pluginName]: {scaffolder: scaffoldEslintConfig}},
         decisions: {
           ...decisions,
           [jsQuestionNames.NODE_VERSION_CATEGORY]: 'LTS',
           [jsQuestionNames.AUTHOR_NAME]: any.word(),
           [jsQuestionNames.AUTHOR_EMAIL]: any.email(),
           [jsQuestionNames.AUTHOR_URL]: any.url(),
-          [jsQuestionNames.CI_SERVICE]: 'Other'
+          [jsQuestionNames.CI_SERVICE]: 'Other',
+          [jsQuestionNames.SCOPE]: this.scope
         }
       })
     );
