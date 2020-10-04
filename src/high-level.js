@@ -13,6 +13,7 @@ export default function (options, javascriptScaffolderFactory) {
         decisions: {[projectQuestionNames.PROJECT_TYPE]: javaScriptLanguageChoice},
         languages: {
           [javaScriptLanguageChoice]: javascriptScaffolderFactory({
+            ...options.decisions,
             [jsQuestionNames.PROJECT_TYPE]: 'Package',
             [jsQuestionNames.PROJECT_TYPE_CHOICE]: PLUGIN_NAME,
             [jsQuestionNames.UNIT_TESTS]: false,
