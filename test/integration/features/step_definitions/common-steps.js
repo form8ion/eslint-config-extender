@@ -58,7 +58,13 @@ When('the high-level scaffolder is executed', async function () {
           [projectQuestionNames.VISIBILITY]: any.fromList(['Public', 'Private']),
           [projectQuestionNames.GIT_REPO]: true,
           [projectQuestionNames.REPO_HOST]: gitHubVcsHostChoice,
-          [projectQuestionNames.REPO_OWNER]: any.word()
+          [projectQuestionNames.REPO_OWNER]: any.word(),
+          [jsQuestionNames.NODE_VERSION_CATEGORY]: 'LTS',
+          [jsQuestionNames.AUTHOR_NAME]: any.word(),
+          [jsQuestionNames.AUTHOR_EMAIL]: any.email(),
+          [jsQuestionNames.AUTHOR_URL]: any.url(),
+          [jsQuestionNames.CI_SERVICE]: 'Other',
+          [jsQuestionNames.SCOPE]: this.scope
         },
         vcsHosts: {[gitHubVcsHostChoice]: {scaffolder: githubScaffolder, prompt}}
       },
@@ -66,15 +72,7 @@ When('the high-level scaffolder is executed', async function () {
         ...options,
         unitTestFrameworks: {},
         packageTypes: {[pluginName]: {scaffolder: scaffoldEslintConfig}},
-        decisions: {
-          ...decisions,
-          [jsQuestionNames.NODE_VERSION_CATEGORY]: 'LTS',
-          [jsQuestionNames.AUTHOR_NAME]: any.word(),
-          [jsQuestionNames.AUTHOR_EMAIL]: any.email(),
-          [jsQuestionNames.AUTHOR_URL]: any.url(),
-          [jsQuestionNames.CI_SERVICE]: 'Other',
-          [jsQuestionNames.SCOPE]: this.scope
-        }
+        decisions
       })
     );
   } catch (e) {

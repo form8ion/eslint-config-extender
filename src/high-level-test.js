@@ -24,6 +24,7 @@ suite('high-level scaffolder', () => {
     const jsScaffolder = any.simpleObject();
     javascriptScaffolderFactory
       .withArgs({
+        ...providedDecisions,
         [javascriptScaffolder.questionNames.PROJECT_TYPE]: 'Package',
         [javascriptScaffolder.questionNames.PROJECT_TYPE_CHOICE]: PLUGIN_NAME,
         [javascriptScaffolder.questionNames.UNIT_TESTS]: false,
