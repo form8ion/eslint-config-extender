@@ -2,11 +2,23 @@ import {promises as fs} from 'fs';
 import writeYaml from '../thirdparty-wrappers/write-yaml';
 
 export default async function ({projectRoot, scope, projectName}) {
+  const configShortName = projectName.substring('eslint-config-'.length);
+
   await Promise.all([
     writeYaml(`${projectRoot}/.eslintrc.yml`, {root: true, extends: [`@${scope}`, '.']}),
     fs.writeFile(
       `${projectRoot}/index.js`,
-      `module.exports = {extends: '@form8ion/${projectName.substring('eslint-config-'.length)}'};\n`
+      `module.exports = {extends: '@form8ion/${configShortName}'};\n`
+    ),
+    fs.writeFile(
+      `${projectRoot}/example.js`,
+      `module.exports = {
+  extends: [
+    '@${scope}',
+    '@${scope}/${configShortName}'
+  ]
+};
+`
     )
   ]);
 
@@ -17,7 +29,6 @@ export default async function ({projectRoot, scope, projectName}) {
     nextSteps: [
       {summary: 'Save the extended `@form8ion` eslint-config as an exact version'},
       {summary: 'Document saving this config using the dev flag'},
-      {summary: 'Replace the code example in the README with a config example'},
       {summary: 'Link to the extended `@form8ion` config in the README'}
     ]
   };
