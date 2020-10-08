@@ -1,6 +1,7 @@
 // #### Import
-// remark-usage-ignore-next
+// remark-usage-ignore-next 2
 import stubbedFs from 'mock-fs';
+import {scaffold as javascriptScaffolder} from '@travi/javascript-scaffolder';
 import {scaffold, extendEslintConfig} from './lib/index.cjs';
 
 // remark-usage-ignore-next
@@ -21,5 +22,8 @@ stubbedFs();
 // ##### High-Level Scaffolder
 
 (async () => {
-  await extendEslintConfig();
+  await extendEslintConfig(
+    {options: 'for the project-scaffolder'},
+    decisions => javascriptScaffolder({options: 'for the js-scaffolder', decisions})
+  );
 })();

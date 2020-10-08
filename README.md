@@ -17,6 +17,8 @@
   * [Example](#example)
     * [Import](#import)
     * [Execute](#execute)
+      * [Scaffolder Plugin](#scaffolder-plugin)
+      * [High-Level Scaffolder](#high-level-scaffolder)
 * [Contributing](#contributing)
   * [Dependencies](#dependencies)
   * [Verification](#verification)
@@ -63,7 +65,10 @@ import {scaffold, extendEslintConfig} from '@form8ion/eslint-config-extender';
 
 ```javascript
 (async () => {
-  await extendEslintConfig();
+  await extendEslintConfig(
+    {options: 'for the project-scaffolder'},
+    decisions => javascriptScaffolder({options: 'for the js-scaffolder', decisions})
+  );
 })();
 ```
 
