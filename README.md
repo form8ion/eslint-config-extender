@@ -17,6 +17,8 @@
   * [Example](#example)
     * [Import](#import)
     * [Execute](#execute)
+      * [Scaffolder Plugin](#scaffolder-plugin)
+      * [High-Level Scaffolder](#high-level-scaffolder)
 * [Contributing](#contributing)
   * [Dependencies](#dependencies)
   * [Verification](#verification)
@@ -42,10 +44,12 @@ $ npm install @form8ion/eslint-config-extender --save-prod
 #### Import
 
 ```javascript
-import {scaffold} from '@form8ion/eslint-config-extender';
+import {scaffold, extendEslintConfig} from '@form8ion/eslint-config-extender';
 ```
 
 #### Execute
+
+##### Scaffolder Plugin
 
 ```javascript
 (async () => {
@@ -54,6 +58,17 @@ import {scaffold} from '@form8ion/eslint-config-extender';
     projectName: 'eslint-config-foo',
     scope: 'bar'
   });
+})();
+```
+
+##### High-Level Scaffolder
+
+```javascript
+(async () => {
+  await extendEslintConfig(
+    {options: 'for the project-scaffolder'},
+    decisions => javascriptScaffolder({options: 'for the js-scaffolder', decisions})
+  );
 })();
 ```
 

@@ -33,6 +33,17 @@ suite('scaffold', () => {
       `${projectRoot}/index.js`,
       `module.exports = {extends: '@form8ion/${configShortName}'};\n`
     );
+    assert.calledWith(
+      fs.writeFile,
+      `${projectRoot}/example.js`,
+      `module.exports = {
+  extends: [
+    '@${scope}',
+    '@${scope}/${configShortName}'
+  ]
+};
+`
+    );
     assert.deepEqual(scripts, {'lint:js': 'eslint .'});
     assert.deepEqual(dependencies, [`@form8ion/${projectName}`]);
     assert.deepEqual(devDependencies, [`@${scope}/eslint-config`]);
@@ -41,7 +52,6 @@ suite('scaffold', () => {
       [
         {summary: 'Save the extended `@form8ion` eslint-config as an exact version'},
         {summary: 'Document saving this config using the dev flag'},
-        {summary: 'Replace the code example in the README with a config example'},
         {summary: 'Link to the extended `@form8ion` config in the README'}
       ]
     );
