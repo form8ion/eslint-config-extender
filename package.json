@@ -61,7 +61,7 @@
     "@travi/travis-lint": "1.0.1",
     "ban-sensitive-files": "1.9.12",
     "chai": "4.2.0",
-    "codecov": "3.7.2",
+    "codecov": "3.8.0",
     "cucumber": "6.0.5",
     "cz-conventional-changelog": "3.3.0",
     "debug": "4.2.0",
