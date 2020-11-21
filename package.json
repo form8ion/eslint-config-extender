@@ -59,7 +59,7 @@
     "@travi/any": "2.0.15",
     "@travi/github-scaffolder": "5.3.0",
     "@travi/travis-lint": "1.0.1",
-    "ban-sensitive-files": "1.9.12",
+    "ban-sensitive-files": "1.9.14",
     "chai": "4.2.0",
     "codecov": "3.8.1",
     "cucumber": "6.0.5",
