@@ -10,7 +10,7 @@ export default function (options, javascriptScaffolderFactory) {
     deepmerge(
       options,
       {
-        decisions: {[projectQuestionNames.PROJECT_TYPE]: javaScriptLanguageChoice},
+        decisions: {[projectQuestionNames.PROJECT_LANGUAGE]: javaScriptLanguageChoice},
         languages: {
           [javaScriptLanguageChoice]: javascriptScaffolderFactory({
             ...options.decisions,

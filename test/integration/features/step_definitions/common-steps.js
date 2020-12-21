@@ -48,6 +48,11 @@ After(() => {
 
 When('the high-level scaffolder is executed', async function () {
   const gitHubVcsHostChoice = 'GitHub';
+  const visibility = any.fromList(['Public', 'Private']);
+  const shouldBeScoped = any.boolean();
+  const scope = shouldBeScoped || 'Private' === visibility ? this.scope : undefined;
+
+  td.when(this.execa('npm', ['ls', 'husky', '--json'])).thenResolve({stdout: JSON.stringify({})});
 
   try {
     await extendEslintConfig(
@@ -55,16 +60,23 @@ When('the high-level scaffolder is executed', async function () {
         decisions: {
           [projectQuestionNames.PROJECT_NAME]: this.projectName,
           [projectQuestionNames.DESCRIPTION]: any.sentence(),
-          [projectQuestionNames.VISIBILITY]: any.fromList(['Public', 'Private']),
+          [projectQuestionNames.VISIBILITY]: visibility,
           [projectQuestionNames.GIT_REPO]: true,
           [projectQuestionNames.REPO_HOST]: gitHubVcsHostChoice,
           [projectQuestionNames.REPO_OWNER]: any.word(),
+          ...'Public' === visibility && {
+            [projectQuestionNames.LICENSE]: 'MIT',
+            [projectQuestionNames.COPYRIGHT_HOLDER]: any.word(),
+            [projectQuestionNames.COPYRIGHT_YEAR]: 2000
+          },
+          ...'Private' === visibility && {[projectQuestionNames.UNLICENSED]: true},
           [jsQuestionNames.NODE_VERSION_CATEGORY]: 'LTS',
           [jsQuestionNames.AUTHOR_NAME]: any.word(),
           [jsQuestionNames.AUTHOR_EMAIL]: any.email(),
           [jsQuestionNames.AUTHOR_URL]: any.url(),
           [jsQuestionNames.CI_SERVICE]: 'Other',
-          [jsQuestionNames.SCOPE]: this.scope
+          [jsQuestionNames.SHOULD_BE_SCOPED]: shouldBeScoped,
+          [jsQuestionNames.SCOPE]: scope
         },
         vcsHosts: {[gitHubVcsHostChoice]: {scaffolder: githubScaffolder, prompt}}
       },
@@ -72,6 +84,7 @@ When('the high-level scaffolder is executed', async function () {
         ...options,
         unitTestFrameworks: {},
         packageTypes: {[pluginName]: {scaffolder: scaffoldEslintConfig}},
+        configs: {eslint: {scope: `@${any.word()}`}},
         decisions
       })
     );

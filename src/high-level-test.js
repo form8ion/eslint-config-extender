@@ -39,7 +39,7 @@ suite('high-level scaffolder', () => {
       projectScaffolder.scaffold,
       {
         ...options,
-        decisions: {...providedDecisions, [projectScaffolder.questionNames.PROJECT_TYPE]: 'JavaScript'},
+        decisions: {...providedDecisions, [projectScaffolder.questionNames.PROJECT_LANGUAGE]: 'JavaScript'},
         languages: {JavaScript: jsScaffolder}
       }
     );
