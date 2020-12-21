@@ -84,7 +84,7 @@
   },
   "dependencies": {
     "@travi/javascript-scaffolder": "^12.0.0",
-    "@travi/project-scaffolder": "9.0.0-beta.3",
+    "@travi/project-scaffolder": "9.0.0",
     "deepmerge": "^4.2.2",
     "write-yaml": "^1.0.0"
   }
