@@ -5,6 +5,6 @@ import any from '@travi/any';
 Given(/^the npm cli is logged in$/, function () {
   this.npmAccount = any.word();
 
-  td.when(this.shell.exec('npm run generate:md && npm test', {silent: false})).thenCallback(0);
+  td.when(this.execa('npm run generate:md && npm test', {shell: true})).thenReturn({stdout: {pipe: () => undefined}});
   td.when(this.execa('npm', ['whoami'])).thenResolve({stdout: this.npmAccount});
 });

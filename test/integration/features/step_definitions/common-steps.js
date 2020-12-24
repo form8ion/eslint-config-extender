@@ -20,7 +20,6 @@ Before(async function () {
   // https://github.com/tschaub/mock-fs/issues/213#issuecomment-347002795
   require('validate-npm-package-name'); // eslint-disable-line import/no-extraneous-dependencies
 
-  this.shell = td.replace('shelljs');
   this.execa = td.replace('execa');
 
   // eslint-disable-next-line import/no-extraneous-dependencies,import/no-unresolved
