@@ -2,7 +2,7 @@ import {EOL} from 'os';
 import {promises as fs} from 'fs';
 import {Then} from 'cucumber';
 import {assert} from 'chai';
-import {safeLoad} from 'js-yaml';
+import {load} from 'js-yaml';
 
 Then('the proper form8ion config is extended', async function () {
   const [indexBuffer, configBuffer, exampleBuffer] = await Promise.all([
@@ -10,7 +10,7 @@ Then('the proper form8ion config is extended', async function () {
     fs.readFile(`${process.cwd()}/.eslintrc.yml`),
     fs.readFile(`${process.cwd()}/example.js`)
   ]);
-  const config = safeLoad(configBuffer.toString());
+  const config = load(configBuffer.toString());
   const index = indexBuffer.toString();
   const example = exampleBuffer.toString();
 
