@@ -54,6 +54,7 @@
     "@form8ion/eslint-config": "1.7.9",
     "@form8ion/eslint-config-cucumber": "1.4.0",
     "@form8ion/eslint-config-mocha": "1.2.10",
+    "@form8ion/javascript-core": "2.9.2",
     "@form8ion/remark-lint-preset": "1.0.12",
     "@travi/any": "2.0.16",
     "@travi/github-scaffolder": "5.3.3",
