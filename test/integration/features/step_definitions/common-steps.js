@@ -46,12 +46,19 @@ After(() => {
 });
 
 When('the high-level scaffolder is executed', async function () {
+  const {packageManagers} = require('@form8ion/javascript-core');
+
   const gitHubVcsHostChoice = 'GitHub';
   const visibility = any.fromList(['Public', 'Private']);
   const shouldBeScoped = any.boolean();
   const scope = shouldBeScoped || 'Private' === visibility ? this.scope : undefined;
 
-  td.when(this.execa('npm', ['ls', 'husky', '--json'])).thenResolve({stdout: JSON.stringify({})});
+  const error = new Error('Command failed with exit code 1: npm ls husky --json');
+  error.exitCode = 1;
+  error.stdout = JSON.stringify({});
+  error.command = 'npm ls husky --json';
+
+  td.when(this.execa('npm', ['ls', 'husky', '--json'])).thenReject(error);
 
   try {
     await extendEslintConfig(
@@ -75,6 +82,7 @@ When('the high-level scaffolder is executed', async function () {
           [jsQuestionNames.AUTHOR_URL]: any.url(),
           [jsQuestionNames.CI_SERVICE]: 'Other',
           [jsQuestionNames.SHOULD_BE_SCOPED]: shouldBeScoped,
+          [jsQuestionNames.PACKAGE_MANAGER]: packageManagers.NPM,
           [jsQuestionNames.SCOPE]: scope
         },
         vcsHosts: {[gitHubVcsHostChoice]: {scaffolder: githubScaffolder, prompt}}
