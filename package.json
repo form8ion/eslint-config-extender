@@ -60,7 +60,7 @@
     "@travi/github-scaffolder": "5.3.3",
     "ban-sensitive-files": "1.9.15",
     "chai": "4.3.4",
-    "codecov": "3.8.1",
+    "codecov": "3.8.2",
     "cucumber": "6.0.5",
     "cz-conventional-changelog": "3.3.0",
     "debug": "4.3.1",
