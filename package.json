@@ -64,7 +64,7 @@
     "cucumber": "6.0.5",
     "cz-conventional-changelog": "3.3.0",
     "debug": "4.3.1",
-    "gherkin-lint": "4.2.1",
+    "gherkin-lint": "4.2.2",
     "husky": "6.0.0",
     "js-yaml": "4.1.0",
     "lockfile-lint": "4.6.2",
