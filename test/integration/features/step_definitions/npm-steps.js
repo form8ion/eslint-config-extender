@@ -1,4 +1,4 @@
-import {Given} from 'cucumber';
+import {Given} from '@cucumber/cucumber';
 import td from 'testdouble';
 import any from '@travi/any';
 

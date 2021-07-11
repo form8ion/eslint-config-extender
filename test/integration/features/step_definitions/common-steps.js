@@ -4,7 +4,7 @@ import nock from 'nock';
 import td from 'testdouble';
 import {prompt, scaffold as githubScaffolder} from '@travi/github-scaffolder';
 import any from '@travi/any';
-import {After, Before, When} from 'cucumber';
+import {After, Before, When} from '@cucumber/cucumber';
 
 let pluginName, extendEslintConfig, scaffoldEslintConfig, projectQuestionNames, jsQuestionNames, scaffoldJs;
 const debug = require('debug')('test');
