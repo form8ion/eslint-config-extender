@@ -24,7 +24,7 @@ Before(async function () {
 
   // eslint-disable-next-line import/no-extraneous-dependencies,import/no-unresolved
   const configExtender = require('@form8ion/eslint-config-extender');
-  const projectScaffolder = require('@travi/project-scaffolder');
+  const projectScaffolder = require('@form8ion/project');
   const jsScaffolder = require('@travi/javascript-scaffolder');
   extendEslintConfig = configExtender.extendEslintConfig;
   scaffoldEslintConfig = configExtender.scaffold;

@@ -1,5 +1,5 @@
-import * as projectScaffolder from '@travi/project-scaffolder';
 import * as javascriptScaffolder from '@travi/javascript-scaffolder';
+import * as projectScaffolder from '@form8ion/project';
 import sinon from 'sinon';
 import {assert} from 'chai';
 import any from '@travi/any';
