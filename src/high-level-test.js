@@ -1,5 +1,6 @@
 import * as javascriptScaffolder from '@travi/javascript-scaffolder';
 import * as projectScaffolder from '@form8ion/project';
+import {dialects} from '@form8ion/javascript-core';
 import sinon from 'sinon';
 import {assert} from 'chai';
 import any from '@travi/any';
@@ -29,7 +30,8 @@ suite('high-level scaffolder', () => {
         [javascriptScaffolder.questionNames.PROJECT_TYPE_CHOICE]: PLUGIN_NAME,
         [javascriptScaffolder.questionNames.UNIT_TESTS]: false,
         [javascriptScaffolder.questionNames.INTEGRATION_TESTS]: false,
-        [javascriptScaffolder.questionNames.TRANSPILE_LINT]: false
+        [javascriptScaffolder.questionNames.CONFIGURE_LINTING]: false,
+        [javascriptScaffolder.questionNames.DIALECT]: dialects.COMMON_JS
       })
       .returns(jsScaffolder);
 
