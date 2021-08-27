@@ -81,7 +81,7 @@
     "rollup": "2.56.2",
     "rollup-plugin-auto-external": "2.0.0",
     "sinon": "11.1.2",
-    "testdouble": "3.16.1"
+    "testdouble": "3.16.2"
   },
   "dependencies": {
     "@form8ion/javascript-core": "^3.0.0",
