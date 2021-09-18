@@ -56,7 +56,7 @@
     "@form8ion/eslint-config": "1.7.27",
     "@form8ion/eslint-config-cucumber": "1.4.0",
     "@form8ion/eslint-config-mocha": "1.2.12",
-    "@form8ion/remark-lint-preset": "2.1.1",
+    "@form8ion/remark-lint-preset": "2.1.2",
     "@travi/any": "2.0.18",
     "@travi/github-scaffolder": "7.0.0",
     "ban-sensitive-files": "1.9.16",
