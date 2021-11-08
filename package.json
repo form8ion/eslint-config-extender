@@ -84,7 +84,7 @@
     "testdouble": "3.16.3"
   },
   "dependencies": {
-    "@form8ion/javascript-core": "^3.0.0",
+    "@form8ion/javascript-core": "^4.0.0",
     "@form8ion/project": "^11.0.0",
     "@travi/javascript-scaffolder": "^14.0.0",
     "deepmerge": "^4.2.2",
