@@ -31,7 +31,8 @@ suite('high-level scaffolder', () => {
         [javascriptScaffolder.questionNames.UNIT_TESTS]: false,
         [javascriptScaffolder.questionNames.INTEGRATION_TESTS]: false,
         [javascriptScaffolder.questionNames.CONFIGURE_LINTING]: false,
-        [javascriptScaffolder.questionNames.DIALECT]: dialects.COMMON_JS
+        [javascriptScaffolder.questionNames.DIALECT]: dialects.COMMON_JS,
+        [javascriptScaffolder.questionNames.SHOULD_BE_SCOPED]: true
       })
       .returns(jsScaffolder);
 

@@ -50,8 +50,7 @@ When('the high-level scaffolder is executed', async function () {
 
   const gitHubVcsHostChoice = 'GitHub';
   const visibility = any.fromList(['Public', 'Private']);
-  const shouldBeScoped = any.boolean();
-  const scope = shouldBeScoped || 'Private' === visibility ? this.scope : undefined;
+  const {scope} = this;
 
   const error = new Error('Command failed with exit code 1: npm ls husky --json');
   error.exitCode = 1;
@@ -81,7 +80,6 @@ When('the high-level scaffolder is executed', async function () {
           [jsQuestionNames.AUTHOR_EMAIL]: any.email(),
           [jsQuestionNames.AUTHOR_URL]: any.url(),
           [jsQuestionNames.CI_SERVICE]: 'Other',
-          [jsQuestionNames.SHOULD_BE_SCOPED]: shouldBeScoped,
           [jsQuestionNames.PACKAGE_MANAGER]: packageManagers.NPM,
           [jsQuestionNames.SCOPE]: scope
         },

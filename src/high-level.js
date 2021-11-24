@@ -20,7 +20,8 @@ export default function (options, javascriptScaffolderFactory) {
             [jsQuestionNames.UNIT_TESTS]: false,
             [jsQuestionNames.INTEGRATION_TESTS]: false,
             [jsQuestionNames.CONFIGURE_LINTING]: false,
-            [jsQuestionNames.DIALECT]: dialects.COMMON_JS
+            [jsQuestionNames.DIALECT]: dialects.COMMON_JS,
+            [jsQuestionNames.SHOULD_BE_SCOPED]: true
           })
         }
       }
