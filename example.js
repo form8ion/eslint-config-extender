@@ -1,7 +1,7 @@
 // #### Import
 // remark-usage-ignore-next 2
 import stubbedFs from 'mock-fs';
-import {scaffold as javascriptScaffolder} from '@travi/javascript-scaffolder';
+import {scaffold as javascriptScaffolder} from '@form8ion/javascript';
 import {scaffold, extendEslintConfig} from './lib/index.cjs';
 
 // remark-usage-ignore-next

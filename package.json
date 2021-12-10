@@ -86,7 +86,7 @@
   "dependencies": {
     "@form8ion/javascript-core": "^4.0.0",
     "@form8ion/project": "^11.0.0",
-    "@travi/javascript-scaffolder": "^14.0.0",
+    "@form8ion/javascript": "^2.0.0",
     "deepmerge": "^4.2.2",
     "write-yaml": "^1.0.0"
   }
