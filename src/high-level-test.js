@@ -1,4 +1,4 @@
-import * as javascriptScaffolder from '@travi/javascript-scaffolder';
+import * as javascriptScaffolder from '@form8ion/javascript';
 import * as projectScaffolder from '@form8ion/project';
 import {dialects} from '@form8ion/javascript-core';
 import sinon from 'sinon';

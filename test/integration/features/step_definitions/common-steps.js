@@ -25,13 +25,13 @@ Before(async function () {
   // eslint-disable-next-line import/no-extraneous-dependencies,import/no-unresolved
   const configExtender = require('@form8ion/eslint-config-extender');
   const projectScaffolder = require('@form8ion/project');
-  const jsScaffolder = require('@travi/javascript-scaffolder');
+  const jsPlugin = require('@form8ion/javascript');
   extendEslintConfig = configExtender.extendEslintConfig;
   scaffoldEslintConfig = configExtender.scaffold;
   pluginName = configExtender.PLUGIN_NAME;
   projectQuestionNames = projectScaffolder.questionNames;
-  jsQuestionNames = jsScaffolder.questionNames;
-  scaffoldJs = jsScaffolder.scaffold;
+  jsQuestionNames = jsPlugin.questionNames;
+  scaffoldJs = jsPlugin.scaffold;
 
   stubbedFs({
     node_modules: stubbedFs.load(resolve(__dirname, '../../../../', 'node_modules'))

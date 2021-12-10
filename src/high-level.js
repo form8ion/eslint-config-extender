@@ -1,5 +1,5 @@
 import deepmerge from 'deepmerge';
-import {questionNames as jsQuestionNames} from '@travi/javascript-scaffolder';
+import {questionNames as jsQuestionNames} from '@form8ion/javascript';
 import {dialects} from '@form8ion/javascript-core';
 import {scaffold, questionNames as projectQuestionNames} from '@form8ion/project';
 import {PLUGIN_NAME} from './constants';
