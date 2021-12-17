@@ -55,7 +55,7 @@
     "@form8ion/commitlint-config": "1.0.23",
     "@form8ion/eslint-config": "1.10.0",
     "@form8ion/eslint-config-cucumber": "1.4.0",
-    "@form8ion/eslint-config-mocha": "1.2.16",
+    "@form8ion/eslint-config-mocha": "1.2.17",
     "@form8ion/remark-lint-preset": "2.1.7",
     "@travi/any": "2.0.19",
     "@travi/github-scaffolder": "7.0.0",
