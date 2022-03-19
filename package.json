@@ -59,7 +59,7 @@
     "@form8ion/remark-lint-preset": "2.1.7",
     "@travi/any": "2.0.20",
     "@travi/github-scaffolder": "7.0.0",
-    "ban-sensitive-files": "1.9.17",
+    "ban-sensitive-files": "1.9.18",
     "chai": "4.3.6",
     "codecov": "3.8.3",
     "cz-conventional-changelog": "3.3.0",
