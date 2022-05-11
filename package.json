@@ -42,8 +42,7 @@
     "build:js": "rollup --config",
     "watch": "run-s 'build:js -- --watch'",
     "prepack": "run-s build",
-    "test:unit": "nyc run-s test:unit:base",
-    "coverage:report": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "test:unit": "cross-env NODE_ENV=test c8 run-s test:unit:base",
     "test:unit:base": "DEBUG=any mocha 'src/**/*-test.js'",
     "lint:peer": "npm ls >/dev/null",
     "prepare": "husky install"
@@ -60,8 +59,9 @@
     "@travi/any": "2.0.20",
     "@travi/github-scaffolder": "8.0.1",
     "ban-sensitive-files": "1.9.18",
+    "c8": "7.11.2",
     "chai": "4.3.6",
-    "codecov": "3.8.3",
+    "cross-env": "7.0.3",
     "cz-conventional-changelog": "3.3.0",
     "debug": "4.3.4",
     "gherkin-lint": "4.2.2",
@@ -72,7 +72,6 @@
     "mock-fs": "5.1.2",
     "nock": "13.2.4",
     "npm-run-all": "4.1.5",
-    "nyc": "15.1.0",
     "package-preview": "4.0.0",
     "remark-cli": "10.0.1",
     "remark-toc": "8.0.1",
@@ -84,9 +83,9 @@
     "testdouble": "3.16.5"
   },
   "dependencies": {
+    "@form8ion/javascript": "^4.0.0",
     "@form8ion/javascript-core": "^5.0.0",
     "@form8ion/project": "^12.0.0",
-    "@form8ion/javascript": "^4.0.0",
     "deepmerge": "^4.2.2",
     "write-yaml": "^1.0.0"
   }
