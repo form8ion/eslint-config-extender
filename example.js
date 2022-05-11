@@ -2,7 +2,7 @@
 // remark-usage-ignore-next 2
 import stubbedFs from 'mock-fs';
 import {scaffold as javascriptScaffolder} from '@form8ion/javascript';
-import {scaffold, extendEslintConfig} from './lib/index.cjs';
+import {scaffold, extendEslintConfig} from './lib/index.js';
 
 // remark-usage-ignore-next
 stubbedFs();

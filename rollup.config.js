@@ -5,7 +5,7 @@ export default {
   input: 'src/index.js',
   plugins: [autoExternal()],
   output: [
-    {file: 'lib/index.cjs.js', format: 'cjs', sourcemap: true},
-    {file: 'lib/index.es.js', format: 'es', sourcemap: true}
+    {file: 'lib/index.js', format: 'cjs', sourcemap: true},
+    {file: 'lib/index.mjs', format: 'es', sourcemap: true}
   ]
 };

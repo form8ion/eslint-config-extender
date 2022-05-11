@@ -11,8 +11,12 @@
     "access": "public"
   },
   "runkitExampleFilename": "./example.js",
-  "main": "lib/index.cjs.js",
-  "module": "lib/index.es.js",
+  "main": "lib/index.js",
+  "module": "lib/index.mjs",
+  "exports": {
+    "require": "./lib/index.js",
+    "import": "./lib/index.mjs"
+  },
   "sideEffects": false,
   "repository": "form8ion/eslint-config-extender",
   "bugs": "https://github.com/form8ion/eslint-config-extender/issues",
