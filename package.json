@@ -7,6 +7,9 @@
     "example.js",
     "lib/"
   ],
+  "engines": {
+    "node": "^14.15 || ^16"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -49,7 +52,8 @@
     "test:unit": "cross-env NODE_ENV=test c8 run-s test:unit:base",
     "test:unit:base": "DEBUG=any mocha 'src/**/*-test.js'",
     "lint:peer": "npm ls >/dev/null",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint:engines": "ls-engines"
   },
   "devDependencies": {
     "@babel/register": "7.17.7",
@@ -72,6 +76,7 @@
     "husky": "8.0.1",
     "js-yaml": "4.1.0",
     "lockfile-lint": "4.7.4",
+    "ls-engines": "0.6.6",
     "mocha": "10.0.0",
     "mock-fs": "5.1.2",
     "nock": "13.2.4",
@@ -89,7 +94,7 @@
   "dependencies": {
     "@form8ion/javascript": "^4.0.0",
     "@form8ion/javascript-core": "^5.0.0",
-    "@form8ion/project": "^13.0.0",
+    "@form8ion/project": "^13.1.0",
     "deepmerge": "^4.2.2",
     "write-yaml": "^1.0.0"
   }
