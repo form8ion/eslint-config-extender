@@ -30,6 +30,7 @@
 [![MIT license][license-badge]][license-link]
 [![npm][npm-badge]][npm-link]
 [![Try @form8ion/eslint-config-extender on RunKit][runkit-badge]][runkit-link]
+![node][node-badge]
 
 <!--consumer-badges end -->
 
@@ -44,7 +45,10 @@ $ npm install @form8ion/eslint-config-extender --save-prod
 #### Import
 
 ```javascript
-import {scaffold, extendEslintConfig} from '@form8ion/eslint-config-extender';
+const {packageManagers} = require('@form8ion/javascript-core');
+const {questionNames: projectQuestionNames} = require('@form8ion/project');
+const {scaffold: javascriptScaffolder, questionNames: jsQuestionNames} = require('@form8ion/javascript');
+const {scaffold, extendEslintConfig} = require('@form8ion/eslint-config-extender');
 ```
 
 #### Execute
@@ -66,8 +70,33 @@ import {scaffold, extendEslintConfig} from '@form8ion/eslint-config-extender';
 ```javascript
 (async () => {
   await extendEslintConfig(
-    {options: 'for the project-scaffolder'},
-    decisions => javascriptScaffolder({options: 'for the js-scaffolder', decisions})
+    {
+      decisions: {
+        [projectQuestionNames.PROJECT_NAME]: 'eslint-config-foo',
+        [projectQuestionNames.DESCRIPTION]: 'a description of the project',
+        [projectQuestionNames.VISIBILITY]: 'Public',
+        [projectQuestionNames.LICENSE]: 'MIT',
+        [projectQuestionNames.COPYRIGHT_HOLDER]: 'John Smith',
+        [projectQuestionNames.COPYRIGHT_YEAR]: '2022',
+        [projectQuestionNames.GIT_REPO]: true,
+        [projectQuestionNames.REPO_HOST]: 'GitHub',
+        [projectQuestionNames.REPO_OWNER]: 'org-name',
+        [jsQuestionNames.AUTHOR_NAME]: 'John Smith',
+        [jsQuestionNames.AUTHOR_EMAIL]: 'john@smith.org',
+        [jsQuestionNames.AUTHOR_URL]: 'https://smith.org',
+        [jsQuestionNames.SCOPE]: 'org-name',
+        [jsQuestionNames.PACKAGE_MANAGER]: packageManagers.NPM,
+        [jsQuestionNames.NODE_VERSION_CATEGORY]: 'LTS',
+        [jsQuestionNames.CI_SERVICE]: 'Other'
+      },
+      vcsHosts: {
+        GitHub: {
+          scaffolder: options => options,
+          prompt: ({decisions}) => ({[projectQuestionNames.REPO_OWNER]: decisions[projectQuestionNames.REPO_OWNER]})
+        }
+      }
+    },
+    decisions => options => javascriptScaffolder({...options, decisions, unitTestFrameworks: {}})
   );
 })();
 ```
@@ -136,3 +165,5 @@ $ npm test
 [github-actions-ci-link]: https://github.com/form8ion/eslint-config-extender/actions?query=workflow%3A%22Node.js+CI%22+branch%3Amaster
 
 [github-actions-ci-badge]: https://github.com/form8ion/eslint-config-extender/workflows/Node.js%20CI/badge.svg
+
+[node-badge]: https://img.shields.io/node/v/@form8ion/eslint-config-extender?logo=node.js
