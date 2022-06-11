@@ -92,7 +92,7 @@
     "testdouble": "3.16.5"
   },
   "dependencies": {
-    "@form8ion/javascript": "^5.7.0",
+    "@form8ion/javascript": "^6.0.0",
     "@form8ion/javascript-core": "^5.1.0",
     "@form8ion/project": "^13.2.0",
     "deepmerge": "^4.2.2",
