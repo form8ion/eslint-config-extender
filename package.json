@@ -31,7 +31,7 @@
     "lint:js": "eslint . --cache",
     "lint:md": "remark . --frail",
     "generate:md": "remark . --output",
-    "pregenerate:md": "npm run build",
+    "pregenerate:md": "run-s build",
     "lint:sensitive": "ban",
     "pretest:integration": "preview",
     "lint:gherkin": "gherkin-lint",
