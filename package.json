@@ -67,7 +67,7 @@
     "@travi/any": "2.1.5",
     "@travi/github-scaffolder": "8.0.2",
     "ban-sensitive-files": "1.9.18",
-    "c8": "7.11.3",
+    "c8": "7.12.0",
     "chai": "4.3.6",
     "cross-env": "7.0.3",
     "cz-conventional-changelog": "3.3.0",
