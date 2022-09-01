@@ -91,7 +91,7 @@
   "dependencies": {
     "@form8ion/javascript": "^8.0.0",
     "@form8ion/javascript-core": "^7.0.0",
-    "@form8ion/project": "^13.2.0",
+    "@form8ion/project": "^14.0.0",
     "deepmerge": "^4.2.2",
     "write-yaml": "^1.0.0"
   }
