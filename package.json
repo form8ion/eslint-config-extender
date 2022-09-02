@@ -3,28 +3,21 @@
   "description": "shareable ESLint config scaffolder for extending another config",
   "license": "MIT",
   "version": "0.0.0-semantically-released",
-  "files": [
-    "example.js",
-    "lib/"
-  ],
   "engines": {
     "node": "^16"
   },
-  "publishConfig": {
-    "access": "public"
-  },
+  "author": "Matt Travi <npm@travi.org> (https://matt.travi.org)",
+  "repository": "form8ion/eslint-config-extender",
+  "bugs": "https://github.com/form8ion/eslint-config-extender/issues",
+  "homepage": "https://npm.im/@form8ion/eslint-config-extender",
   "runkitExampleFilename": "./example.js",
-  "main": "lib/index.js",
-  "module": "lib/index.mjs",
   "exports": {
     "require": "./lib/index.js",
     "import": "./lib/index.mjs"
   },
+  "main": "lib/index.js",
+  "module": "lib/index.mjs",
   "sideEffects": false,
-  "repository": "form8ion/eslint-config-extender",
-  "bugs": "https://github.com/form8ion/eslint-config-extender/issues",
-  "homepage": "https://npm.im/@form8ion/eslint-config-extender",
-  "author": "Matt Travi <npm@travi.org> (https://matt.travi.org)",
   "scripts": {
     "test": "npm-run-all --print-label build --parallel lint:* --parallel test:*",
     "lint:lockfile": "lockfile-lint --path package-lock.json --type npm --validate-https --allowed-hosts npm",
@@ -52,6 +45,20 @@
     "lint:peer": "npm ls >/dev/null",
     "prepare": "husky install",
     "lint:engines": "ls-engines"
+  },
+  "files": [
+    "example.js",
+    "lib/"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@form8ion/javascript": "^8.0.0",
+    "@form8ion/javascript-core": "^7.0.0",
+    "@form8ion/project": "^14.0.0",
+    "deepmerge": "^4.2.2",
+    "write-yaml": "^1.0.0"
   },
   "devDependencies": {
     "@babel/register": "7.18.9",
@@ -87,12 +94,5 @@
     "rollup-plugin-auto-external": "2.0.0",
     "sinon": "14.0.0",
     "testdouble": "3.16.6"
-  },
-  "dependencies": {
-    "@form8ion/javascript": "^8.0.0",
-    "@form8ion/javascript-core": "^7.0.0",
-    "@form8ion/project": "^14.0.0",
-    "deepmerge": "^4.2.2",
-    "write-yaml": "^1.0.0"
   }
 }
