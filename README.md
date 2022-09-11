@@ -87,7 +87,8 @@ const {scaffold, extendEslintConfig} = require('@form8ion/eslint-config-extender
         [jsQuestionNames.SCOPE]: 'org-name',
         [jsQuestionNames.PACKAGE_MANAGER]: packageManagers.NPM,
         [jsQuestionNames.NODE_VERSION_CATEGORY]: 'LTS',
-        [jsQuestionNames.CI_SERVICE]: 'Other'
+        [jsQuestionNames.CI_SERVICE]: 'Other',
+        [jsQuestionNames.PROVIDE_EXAMPLE]: false
       },
       vcsHosts: {
         GitHub: {
