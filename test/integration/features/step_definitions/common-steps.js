@@ -81,7 +81,8 @@ When('the high-level scaffolder is executed', async function () {
           [jsQuestionNames.AUTHOR_URL]: any.url(),
           [jsQuestionNames.CI_SERVICE]: 'Other',
           [jsQuestionNames.PACKAGE_MANAGER]: packageManagers.NPM,
-          [jsQuestionNames.SCOPE]: scope
+          [jsQuestionNames.SCOPE]: scope,
+          [jsQuestionNames.PROVIDE_EXAMPLE]: false
         },
         vcsHosts: {[gitHubVcsHostChoice]: {scaffolder: githubScaffolder, prompt}}
       },

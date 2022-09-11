@@ -60,7 +60,8 @@ stubbedFs({node_modules: stubbedNodeModules});
         [jsQuestionNames.SCOPE]: 'org-name',
         [jsQuestionNames.PACKAGE_MANAGER]: packageManagers.NPM,
         [jsQuestionNames.NODE_VERSION_CATEGORY]: 'LTS',
-        [jsQuestionNames.CI_SERVICE]: 'Other'
+        [jsQuestionNames.CI_SERVICE]: 'Other',
+        [jsQuestionNames.PROVIDE_EXAMPLE]: false
       },
       vcsHosts: {
         GitHub: {
