@@ -4,7 +4,7 @@
   "license": "MIT",
   "version": "0.0.0-semantically-released",
   "engines": {
-    "node": "^16"
+    "node": "^16.13.0"
   },
   "author": "Matt Travi <npm@travi.org> (https://matt.travi.org)",
   "repository": "form8ion/eslint-config-extender",
@@ -54,7 +54,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@form8ion/javascript": "^9.0.0",
+    "@form8ion/javascript": "^10.0.0",
     "@form8ion/javascript-core": "^8.0.0",
     "@form8ion/project": "^14.0.0",
     "deepmerge": "^4.2.2",
