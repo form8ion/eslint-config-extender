@@ -81,7 +81,7 @@
     "husky": "8.0.2",
     "js-yaml": "4.1.0",
     "lockfile-lint": "4.9.6",
-    "ls-engines": "0.7.0",
+    "ls-engines": "0.8.0",
     "mocha": "10.2.0",
     "mock-fs": "5.2.0",
     "nock": "13.2.9",
