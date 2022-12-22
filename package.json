@@ -70,7 +70,7 @@
     "@form8ion/eslint-config-mocha": "2.0.3",
     "@form8ion/remark-lint-preset": "4.0.2",
     "@travi/any": "2.1.6",
-    "@travi/github-scaffolder": "8.0.2",
+    "@travi/github-scaffolder": "8.0.3",
     "ban-sensitive-files": "1.9.18",
     "c8": "7.12.0",
     "chai": "4.3.7",
