@@ -78,7 +78,7 @@
     "cz-conventional-changelog": "3.3.0",
     "debug": "4.3.4",
     "gherkin-lint": "4.2.2",
-    "husky": "8.0.2",
+    "husky": "8.0.3",
     "js-yaml": "4.1.0",
     "lockfile-lint": "4.10.0",
     "ls-engines": "0.8.0",
