@@ -6,8 +6,8 @@ import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import any from '@travi/any';
 import {when} from 'jest-when';
 
-import {PLUGIN_NAME} from './constants';
-import extendEslintConfig from './high-level';
+import {PLUGIN_NAME} from './constants.js';
+import extendEslintConfig from './high-level.js';
 
 describe('high-level scaffolder', () => {
   beforeEach(() => {

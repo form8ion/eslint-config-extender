@@ -1,6 +1,6 @@
 import {Given} from '@cucumber/cucumber';
 import any from '@travi/any';
-import td from 'testdouble';
+import * as td from 'testdouble';
 
 function versionSegment() {
   return any.integer({max: 20});

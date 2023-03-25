@@ -3,6 +3,7 @@
   "description": "shareable ESLint config scaffolder for extending another config",
   "license": "MIT",
   "version": "0.0.0-semantically-released",
+  "type": "module",
   "engines": {
     "node": "^16.13.0 || >=18"
   },
@@ -11,25 +12,21 @@
   "bugs": "https://github.com/form8ion/eslint-config-extender/issues",
   "homepage": "https://npm.im/@form8ion/eslint-config-extender",
   "runkitExampleFilename": "./example.js",
-  "exports": {
-    "require": "./lib/index.js",
-    "import": "./lib/index.mjs"
-  },
-  "main": "lib/index.js",
-  "module": "lib/index.mjs",
+  "exports": "./lib/index.mjs",
+  "main": "lib/index.mjs",
   "sideEffects": false,
   "scripts": {
     "test": "npm-run-all --print-label build --parallel lint:* --parallel test:*",
     "lint:lockfile": "lockfile-lint --path package-lock.json --type npm --validate-https --allowed-hosts npm",
     "lint:js": "eslint . --cache",
-    "lint:md": "remark . --frail",
-    "generate:md": "remark . --output",
+    "lint:md": "NODE_OPTIONS=--loader=testdouble remark . --frail",
     "pregenerate:md": "run-s build",
+    "generate:md": "NODE_OPTIONS=\"--loader=testdouble --enable-source-maps\" remark . --output",
     "lint:sensitive": "ban",
     "pretest:integration:base": "run-s build",
     "lint:gherkin": "gherkin-lint",
     "test:integration": "run-s 'test:integration:base -- --profile noWip'",
-    "test:integration:base": "DEBUG=any cucumber-js test/integration --profile base",
+    "test:integration:base": "NODE_OPTIONS=\"--loader=testdouble --enable-source-maps\" DEBUG=any cucumber-js test/integration",
     "test:integration:debug": "DEBUG=test run-s test:integration",
     "test:integration:wip": "run-s 'test:integration:base -- --profile wip'",
     "test:integration:wip:debug": "DEBUG=test run-s 'test:integration:wip'",
@@ -61,9 +58,7 @@
     "write-yaml": "^1.0.0"
   },
   "devDependencies": {
-    "@babel/register": "7.21.0",
     "@cucumber/cucumber": "9.0.1",
-    "@form8ion/babel-preset": "1.6.99",
     "@form8ion/commitlint-config": "1.0.46",
     "@form8ion/eslint-config": "5.0.27",
     "@form8ion/eslint-config-cucumber": "1.4.1",

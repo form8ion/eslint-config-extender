@@ -1,8 +1,8 @@
 // #### Import
 // remark-usage-ignore-next 4
-import {resolve} from 'path';
+import {resolve} from 'node:path';
 import stubbedFs from 'mock-fs';
-import td from 'testdouble';
+import * as td from 'testdouble';
 import any from '@travi/any';
 
 // remark-usage-ignore-next 12
@@ -11,7 +11,7 @@ const error = new Error('Command failed with exit code 1: npm ls husky --json');
 error.exitCode = 1;
 error.stdout = JSON.stringify({});
 error.command = 'npm ls husky --json';
-const execa = td.replace('execa');
+const {default: execa} = await td.replaceEsm('@form8ion/execa-wrapper');
 td.when(execa('. ~/.nvm/nvm.sh && nvm ls-remote --lts', {shell: true}))
   .thenResolve({stdout: ['v16.5.4', ''].join('\n')});
 td.when(execa('. ~/.nvm/nvm.sh && nvm install', {shell: true})).thenReturn({stdout: {pipe: () => undefined}});
@@ -19,10 +19,10 @@ td.when(execa('npm', ['ls', 'husky', '--json'])).thenReject(error);
 td.when(execa('npm run generate:md && npm test', {shell: true})).thenReturn({stdout: {pipe: () => undefined}});
 td.when(execa('npm', ['whoami'])).thenResolve({stdout: any.word()});
 
-const {packageManagers} = require('@form8ion/javascript-core');
-const {questionNames: projectQuestionNames} = require('@form8ion/project');
-const {scaffold: javascriptScaffolder, questionNames: jsQuestionNames} = require('@form8ion/javascript');
-const {scaffold, extendEslintConfig} = require('./lib/index.js');
+const {packageManagers} = await import('@form8ion/javascript-core');
+const {questionNames: projectQuestionNames} = await import('@form8ion/project');
+const {scaffold: javascriptScaffolder, questionNames: jsQuestionNames} = await import('@form8ion/javascript');
+const {scaffold, extendEslintConfig} = await import('./lib/index.mjs');
 
 // remark-usage-ignore-next
 stubbedFs({node_modules: stubbedNodeModules});

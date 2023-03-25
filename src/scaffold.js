@@ -1,5 +1,6 @@
-import {promises as fs} from 'fs';
-import writeYaml from '../thirdparty-wrappers/write-yaml';
+import {promises as fs} from 'node:fs';
+
+import writeYaml from '../thirdparty-wrappers/write-yaml.js';
 
 export default async function ({projectRoot, scope, projectName}) {
   const configShortName = projectName.substring('eslint-config-'.length);

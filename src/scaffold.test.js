@@ -3,8 +3,8 @@ import {promises as fs} from 'node:fs';
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import any from '@travi/any';
 
-import * as writeYaml from '../thirdparty-wrappers/write-yaml';
-import scaffold from './scaffold';
+import * as writeYaml from '../thirdparty-wrappers/write-yaml.js';
+import scaffold from './scaffold.js';
 
 describe('scaffold', () => {
   const projectRoot = any.string();

@@ -45,10 +45,10 @@ $ npm install @form8ion/eslint-config-extender --save-prod
 #### Import
 
 ```javascript
-const {packageManagers} = require('@form8ion/javascript-core');
-const {questionNames: projectQuestionNames} = require('@form8ion/project');
-const {scaffold: javascriptScaffolder, questionNames: jsQuestionNames} = require('@form8ion/javascript');
-const {scaffold, extendEslintConfig} = require('@form8ion/eslint-config-extender');
+const {packageManagers} = await import('@form8ion/javascript-core');
+const {questionNames: projectQuestionNames} = await import('@form8ion/project');
+const {scaffold: javascriptScaffolder, questionNames: jsQuestionNames} = await import('@form8ion/javascript');
+const {scaffold, extendEslintConfig} = await import('./lib/index.mjs');
 ```
 
 #### Execute

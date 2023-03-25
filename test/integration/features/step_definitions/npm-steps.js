@@ -1,5 +1,5 @@
 import {Given} from '@cucumber/cucumber';
-import td from 'testdouble';
+import * as td from 'testdouble';
 import any from '@travi/any';
 
 Given(/^the npm cli is logged in$/, function () {

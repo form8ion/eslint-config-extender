@@ -4,6 +4,14 @@ extends:
   - '@form8ion'
   - '@form8ion/cucumber'
 
+parserOptions:
+  ecmaVersion: 2022
+
+rules:
+  import/extensions:
+    - error
+    - ignorePackages
+
 overrides:
   - files: example.js
     rules:

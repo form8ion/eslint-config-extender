@@ -1,13 +1,17 @@
-import {resolve} from 'path';
+import {dirname, resolve} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {prompt, scaffold as githubScaffolder} from '@travi/github-scaffolder';
+
 import stubbedFs from 'mock-fs';
 import nock from 'nock';
-import td from 'testdouble';
-import {prompt, scaffold as githubScaffolder} from '@travi/github-scaffolder';
+import * as td from 'testdouble';
 import any from '@travi/any';
 import {After, Before, When} from '@cucumber/cucumber';
+import testDebug from 'debug';
 
 let pluginName, extendEslintConfig, scaffoldEslintConfig, projectQuestionNames, jsQuestionNames, scaffoldJs;
-const debug = require('debug')('test');
+const __dirname = dirname(fileURLToPath(import.meta.url));        // eslint-disable-line no-underscore-dangle
+const debug = testDebug('test');
 
 Before(async function () {
   this.configName = any.word();
@@ -18,14 +22,14 @@ Before(async function () {
 
   // work around for overly aggressive mock-fs, see:
   // https://github.com/tschaub/mock-fs/issues/213#issuecomment-347002795
-  require('validate-npm-package-name'); // eslint-disable-line import/no-extraneous-dependencies
+  await import('validate-npm-package-name'); // eslint-disable-line import/no-extraneous-dependencies
 
-  this.execa = td.replace('@form8ion/execa-wrapper');
+  ({default: this.execa} = (await td.replaceEsm('@form8ion/execa-wrapper')));
 
   // eslint-disable-next-line import/no-extraneous-dependencies,import/no-unresolved
-  const configExtender = require('@form8ion/eslint-config-extender');
-  const projectScaffolder = require('@form8ion/project');
-  const jsPlugin = require('@form8ion/javascript');
+  const configExtender = await import('@form8ion/eslint-config-extender');
+  const projectScaffolder = await import('@form8ion/project');
+  const jsPlugin = await import('@form8ion/javascript');
   extendEslintConfig = configExtender.extendEslintConfig;
   scaffoldEslintConfig = configExtender.scaffold;
   pluginName = configExtender.PLUGIN_NAME;
@@ -46,7 +50,7 @@ After(() => {
 });
 
 When('the high-level scaffolder is executed', async function () {
-  const {packageManagers} = require('@form8ion/javascript-core');
+  const {packageManagers} = await import('@form8ion/javascript-core');
 
   const gitHubVcsHostChoice = 'GitHub';
   const visibility = any.fromList(['Public', 'Private']);
