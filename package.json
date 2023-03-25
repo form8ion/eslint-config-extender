@@ -41,7 +41,7 @@
     "watch": "run-s 'build:js -- --watch'",
     "prepack": "run-s build",
     "test:unit": "cross-env NODE_ENV=test c8 run-s test:unit:base",
-    "test:unit:base": "DEBUG=any mocha 'src/**/*-test.js'",
+    "test:unit:base": "DEBUG=any vitest run",
     "lint:peer": "npm ls >/dev/null",
     "prepare": "husky install",
     "lint:engines": "ls-engines"
@@ -67,7 +67,6 @@
     "@form8ion/commitlint-config": "1.0.46",
     "@form8ion/eslint-config": "5.0.27",
     "@form8ion/eslint-config-cucumber": "1.4.1",
-    "@form8ion/eslint-config-mocha": "2.0.3",
     "@form8ion/remark-lint-preset": "5.0.0",
     "@travi/any": "2.1.8",
     "@travi/github-scaffolder": "8.0.4",
@@ -79,10 +78,10 @@
     "debug": "4.3.4",
     "gherkin-lint": "4.2.2",
     "husky": "8.0.3",
+    "jest-when": "3.5.2",
     "js-yaml": "4.1.0",
     "lockfile-lint": "4.10.1",
     "ls-engines": "0.9.0",
-    "mocha": "10.2.0",
     "mock-fs": "5.2.0",
     "nock": "13.3.0",
     "npm-run-all": "4.1.5",
@@ -92,7 +91,7 @@
     "rimraf": "4.4.1",
     "rollup": "3.20.2",
     "rollup-plugin-auto-external": "2.0.0",
-    "sinon": "15.0.2",
-    "testdouble": "3.17.1"
+    "testdouble": "3.17.1",
+    "vitest": "0.29.7"
   }
 }
