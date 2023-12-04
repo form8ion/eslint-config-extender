@@ -54,7 +54,7 @@
   "dependencies": {
     "@form8ion/javascript": "^11.0.0",
     "@form8ion/javascript-core": "^10.0.0",
-    "@form8ion/project": "^17.0.0",
+    "@form8ion/project": "^18.0.0",
     "deepmerge": "^4.2.2",
     "write-yaml": "^1.0.0"
   },
