@@ -150,7 +150,7 @@ $ npm test
 
 [coverage-link]: https://codecov.io/github/form8ion/eslint-config-extender
 
-[coverage-badge]: https://img.shields.io/codecov/c/github/form8ion/eslint-config-extender.svg
+[coverage-badge]: https://img.shields.io/codecov/c/github/form8ion/eslint-config-extender?logo=codecov
 
 [license-link]: LICENSE
 
@@ -158,7 +158,7 @@ $ npm test
 
 [npm-link]: https://www.npmjs.com/package/@form8ion/eslint-config-extender
 
-[npm-badge]: https://img.shields.io/npm/v/@form8ion/eslint-config-extender.svg
+[npm-badge]: https://img.shields.io/npm/v/@form8ion/eslint-config-extender?logo=npm
 
 [runkit-link]: https://npm.runkit.com/@form8ion/eslint-config-extender
 
