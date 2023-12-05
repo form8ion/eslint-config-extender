@@ -7,6 +7,7 @@
 
 [![Codecov][coverage-badge]][coverage-link]
 [![Node CI Workflow Status][github-actions-ci-badge]][github-actions-ci-link]
+![SLSA Level 2][slsa-badge]
 
 <!--status-badges end -->
 
@@ -168,3 +169,5 @@ $ npm test
 [github-actions-ci-badge]: https://github.com/form8ion/eslint-config-extender/workflows/Node.js%20CI/badge.svg
 
 [node-badge]: https://img.shields.io/node/v/@form8ion/eslint-config-extender?logo=node.js
+
+[slsa-badge]: https://slsa.dev/images/gh-badge-level2.svg
