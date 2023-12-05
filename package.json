@@ -41,7 +41,8 @@
     "test:unit:base": "DEBUG=any vitest run",
     "lint:peer": "npm ls >/dev/null",
     "prepare": "husky install",
-    "lint:engines": "ls-engines"
+    "lint:engines": "ls-engines",
+    "lint:publish": "publint --strict"
   },
   "files": [
     "example.js",
@@ -81,6 +82,7 @@
     "mock-fs": "5.2.0",
     "nock": "13.4.0",
     "npm-run-all2": "6.1.1",
+    "publint": "0.2.6",
     "remark-cli": "12.0.0",
     "remark-toc": "9.0.0",
     "remark-usage": "11.0.1",
