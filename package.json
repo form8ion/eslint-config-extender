@@ -67,7 +67,7 @@
     "@form8ion/remark-lint-preset": "6.0.3",
     "@travi/any": "3.1.2",
     "@travi/github-scaffolder": "10.0.1",
-    "ban-sensitive-files": "1.10.3",
+    "ban-sensitive-files": "1.10.4",
     "c8": "9.1.0",
     "chai": "5.1.1",
     "cross-env": "7.0.3",
