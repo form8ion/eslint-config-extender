@@ -64,7 +64,7 @@
     "@form8ion/commitlint-config": "1.0.76",
     "@form8ion/eslint-config": "7.0.9",
     "@form8ion/eslint-config-cucumber": "1.4.1",
-    "@form8ion/remark-lint-preset": "6.0.3",
+    "@form8ion/remark-lint-preset": "6.0.4",
     "@travi/any": "3.1.2",
     "@travi/github-scaffolder": "10.3.1",
     "ban-sensitive-files": "1.10.5",
