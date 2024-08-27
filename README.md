@@ -49,7 +49,7 @@ $ npm install @form8ion/eslint-config-extender --save-prod
 const {packageManagers} = await import('@form8ion/javascript-core');
 const githubPlugin = await import('@form8ion/github');
 const {questionNames: projectQuestionNames} = await import('@form8ion/project');
-const {scaffold: javascriptScaffolder, questionNames: jsQuestionNames} = await import('@form8ion/javascript');
+const javascriptPlugin = await import('@form8ion/javascript');
 const {scaffold, extendEslintConfig} = await import('./lib/index.mjs');
 ```
 
@@ -83,18 +83,21 @@ const {scaffold, extendEslintConfig} = await import('./lib/index.mjs');
         [projectQuestionNames.GIT_REPO]: true,
         [projectQuestionNames.REPO_HOST]: 'GitHub',
         [projectQuestionNames.REPO_OWNER]: 'org-name',
-        [jsQuestionNames.AUTHOR_NAME]: 'John Smith',
-        [jsQuestionNames.AUTHOR_EMAIL]: 'john@smith.org',
-        [jsQuestionNames.AUTHOR_URL]: 'https://smith.org',
-        [jsQuestionNames.SCOPE]: 'org-name',
-        [jsQuestionNames.PACKAGE_MANAGER]: packageManagers.NPM,
-        [jsQuestionNames.NODE_VERSION_CATEGORY]: 'LTS',
-        [jsQuestionNames.CI_SERVICE]: 'Other',
-        [jsQuestionNames.PROVIDE_EXAMPLE]: false
+        [javascriptPlugin.questionNames.AUTHOR_NAME]: 'John Smith',
+        [javascriptPlugin.questionNames.AUTHOR_EMAIL]: 'john@smith.org',
+        [javascriptPlugin.questionNames.AUTHOR_URL]: 'https://smith.org',
+        [javascriptPlugin.questionNames.SCOPE]: 'org-name',
+        [javascriptPlugin.questionNames.PACKAGE_MANAGER]: packageManagers.NPM,
+        [javascriptPlugin.questionNames.NODE_VERSION_CATEGORY]: 'LTS',
+        [javascriptPlugin.questionNames.CI_SERVICE]: 'Other',
+        [javascriptPlugin.questionNames.PROVIDE_EXAMPLE]: false
       },
       plugins: {vcsHosts: {GitHub: githubPlugin}}
     },
-    decisions => options => javascriptScaffolder({...options, decisions, unitTestFrameworks: {}})
+    decisions => ({
+      ...javascriptPlugin,
+      scaffold: options =>javascriptPlugin.scaffold({...options, decisions, unitTestFrameworks: {}})
+    })
   );
 })();
 ```

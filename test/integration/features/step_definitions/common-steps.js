@@ -92,12 +92,14 @@ When('the high-level scaffolder is executed', async function () {
           vcsHosts: {[gitHubVcsHostChoice]: githubPlugin}
         }
       },
-      decisions => options => scaffoldJs({
-        ...options,
-        unitTestFrameworks: {},
-        packageTypes: {[pluginName]: {scaffolder: scaffoldEslintConfig}},
-        configs: {eslint: {scope: `@${any.word()}`}},
-        decisions
+      decisions => ({
+        scaffold: options => scaffoldJs({
+          ...options,
+          unitTestFrameworks: {},
+          packageTypes: {[pluginName]: {scaffolder: scaffoldEslintConfig}},
+          configs: {eslint: {scope: `@${any.word()}`}},
+          decisions
+        })
       })
     );
   } catch (e) {
