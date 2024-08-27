@@ -39,7 +39,7 @@ describe('high-level scaffolder', () => {
     expect(projectScaffolder.scaffold).toHaveBeenCalledWith({
       ...options,
       decisions: {...providedDecisions, [projectScaffolder.questionNames.PROJECT_LANGUAGE]: 'JavaScript'},
-      languages: {JavaScript: jsScaffolder}
+      plugins: {languages: {JavaScript: {scaffold: jsScaffolder}}}
     });
   });
 });

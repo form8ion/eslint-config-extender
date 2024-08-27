@@ -1,9 +1,10 @@
 import {promises as fs} from 'node:fs';
+import {fileTypes} from '@form8ion/core';
+import {write} from '@form8ion/config-file';
 
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import any from '@travi/any';
 
-import * as writeYaml from '../thirdparty-wrappers/write-yaml.js';
 import scaffold from './scaffold.js';
 
 describe('scaffold', () => {
@@ -11,7 +12,7 @@ describe('scaffold', () => {
 
   beforeEach(() => {
     vi.mock('node:fs');
-    vi.mock('../thirdparty-wrappers/write-yaml');
+    vi.mock('@form8ion/config-file');
   });
 
   afterEach(() => {
@@ -25,10 +26,12 @@ describe('scaffold', () => {
 
     const {scripts, dependencies, devDependencies, nextSteps} = await scaffold({projectRoot, projectName, scope});
 
-    expect(writeYaml.default).toHaveBeenCalledWith(
-      `${projectRoot}/.eslintrc.yml`,
-      {root: true, extends: [`@${scope}`, '.']}
-    );
+    expect(write).toHaveBeenCalledWith({
+      path: projectRoot,
+      format: fileTypes.YAML,
+      name: 'eslint',
+      config: {root: true, extends: [`@${scope}`, '.']}
+    });
     expect(fs.writeFile).toHaveBeenCalledWith(
       `${projectRoot}/index.js`,
       `module.exports = {extends: '@form8ion/${configShortName}'};\n`

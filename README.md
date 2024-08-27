@@ -47,6 +47,7 @@ $ npm install @form8ion/eslint-config-extender --save-prod
 
 ```javascript
 const {packageManagers} = await import('@form8ion/javascript-core');
+const githubPlugin = await import('@form8ion/github');
 const {questionNames: projectQuestionNames} = await import('@form8ion/project');
 const {scaffold: javascriptScaffolder, questionNames: jsQuestionNames} = await import('@form8ion/javascript');
 const {scaffold, extendEslintConfig} = await import('./lib/index.mjs');
@@ -91,12 +92,7 @@ const {scaffold, extendEslintConfig} = await import('./lib/index.mjs');
         [jsQuestionNames.CI_SERVICE]: 'Other',
         [jsQuestionNames.PROVIDE_EXAMPLE]: false
       },
-      vcsHosts: {
-        GitHub: {
-          scaffolder: options => options,
-          prompt: ({decisions}) => ({[projectQuestionNames.REPO_OWNER]: decisions[projectQuestionNames.REPO_OWNER]})
-        }
-      }
+      plugins: {vcsHosts: {GitHub: githubPlugin}}
     },
     decisions => options => javascriptScaffolder({...options, decisions, unitTestFrameworks: {}})
   );

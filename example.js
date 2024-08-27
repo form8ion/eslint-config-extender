@@ -20,6 +20,7 @@ td.when(execa('npm run generate:md && npm test', {shell: true})).thenReturn({std
 td.when(execa('npm', ['whoami'])).thenResolve({stdout: any.word()});
 
 const {packageManagers} = await import('@form8ion/javascript-core');
+const githubPlugin = await import('@form8ion/github');
 const {questionNames: projectQuestionNames} = await import('@form8ion/project');
 const {scaffold: javascriptScaffolder, questionNames: jsQuestionNames} = await import('@form8ion/javascript');
 const {scaffold, extendEslintConfig} = await import('./lib/index.mjs');
@@ -63,12 +64,7 @@ stubbedFs({node_modules: stubbedNodeModules});
         [jsQuestionNames.CI_SERVICE]: 'Other',
         [jsQuestionNames.PROVIDE_EXAMPLE]: false
       },
-      vcsHosts: {
-        GitHub: {
-          scaffolder: options => options,
-          prompt: ({decisions}) => ({[projectQuestionNames.REPO_OWNER]: decisions[projectQuestionNames.REPO_OWNER]})
-        }
-      }
+      plugins: {vcsHosts: {GitHub: githubPlugin}}
     },
     decisions => options => javascriptScaffolder({...options, decisions, unitTestFrameworks: {}})
   );
