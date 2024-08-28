@@ -1,12 +1,17 @@
 import {promises as fs} from 'node:fs';
-
-import writeYaml from '../thirdparty-wrappers/write-yaml.js';
+import {fileTypes} from '@form8ion/core';
+import {write} from '@form8ion/config-file';
 
 export default async function ({projectRoot, scope, projectName}) {
   const configShortName = projectName.substring('eslint-config-'.length);
 
   await Promise.all([
-    writeYaml(`${projectRoot}/.eslintrc.yml`, {root: true, extends: [`@${scope}`, '.']}),
+    write({
+      format: fileTypes.YAML,
+      path: projectRoot,
+      name: 'eslint',
+      config: {root: true, extends: [`@${scope}`, '.']}
+    }),
     fs.writeFile(
       `${projectRoot}/index.js`,
       `module.exports = {extends: '@form8ion/${configShortName}'};\n`

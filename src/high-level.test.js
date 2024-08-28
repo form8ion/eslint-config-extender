@@ -21,9 +21,9 @@ describe('high-level scaffolder', () => {
   it('should execute the project-scaffolder', async () => {
     const providedDecisions = any.simpleObject();
     const options = {...any.simpleObject(), decisions: providedDecisions};
-    const jsScaffolder = any.simpleObject();
-    const javascriptScaffolderFactory = vi.fn();
-    when(javascriptScaffolderFactory).calledWith({
+    const jsPlugin = {scaffold: any.simpleObject()};
+    const javascriptPluginFactory = vi.fn();
+    when(javascriptPluginFactory).calledWith({
       ...providedDecisions,
       [javascriptScaffolder.questionNames.PROJECT_TYPE]: 'Package',
       [javascriptScaffolder.questionNames.PROJECT_TYPE_CHOICE]: PLUGIN_NAME,
@@ -32,14 +32,14 @@ describe('high-level scaffolder', () => {
       [javascriptScaffolder.questionNames.CONFIGURE_LINTING]: false,
       [javascriptScaffolder.questionNames.DIALECT]: dialects.COMMON_JS,
       [javascriptScaffolder.questionNames.SHOULD_BE_SCOPED]: true
-    }).mockReturnValue(jsScaffolder);
+    }).mockReturnValue(jsPlugin);
 
-    await extendEslintConfig(options, javascriptScaffolderFactory);
+    await extendEslintConfig(options, javascriptPluginFactory);
 
     expect(projectScaffolder.scaffold).toHaveBeenCalledWith({
       ...options,
       decisions: {...providedDecisions, [projectScaffolder.questionNames.PROJECT_LANGUAGE]: 'JavaScript'},
-      languages: {JavaScript: jsScaffolder}
+      plugins: {languages: {JavaScript: jsPlugin}}
     });
   });
 });

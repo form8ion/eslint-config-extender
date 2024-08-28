@@ -1,6 +1,6 @@
 import {dirname, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {prompt, scaffold as githubScaffolder} from '@travi/github-scaffolder';
+import * as githubPlugin from '@form8ion/github';
 
 import stubbedFs from 'mock-fs';
 import nock from 'nock';
@@ -88,14 +88,18 @@ When('the high-level scaffolder is executed', async function () {
           [jsQuestionNames.SCOPE]: scope,
           [jsQuestionNames.PROVIDE_EXAMPLE]: false
         },
-        vcsHosts: {[gitHubVcsHostChoice]: {scaffolder: githubScaffolder, prompt}}
+        plugins: {
+          vcsHosts: {[gitHubVcsHostChoice]: githubPlugin}
+        }
       },
-      decisions => options => scaffoldJs({
-        ...options,
-        unitTestFrameworks: {},
-        packageTypes: {[pluginName]: {scaffolder: scaffoldEslintConfig}},
-        configs: {eslint: {scope: `@${any.word()}`}},
-        decisions
+      decisions => ({
+        scaffold: options => scaffoldJs({
+          ...options,
+          unitTestFrameworks: {},
+          packageTypes: {[pluginName]: {scaffolder: scaffoldEslintConfig}},
+          configs: {eslint: {scope: `@${any.word()}`}},
+          decisions
+        })
       })
     );
   } catch (e) {

@@ -53,20 +53,21 @@
     "provenance": true
   },
   "dependencies": {
+    "@form8ion/config-file": "^1.1.2",
+    "@form8ion/core": "^4.7.1",
     "@form8ion/javascript": "^12.0.0",
     "@form8ion/javascript-core": "^11.0.0",
-    "@form8ion/project": "^18.0.0",
-    "deepmerge": "^4.2.2",
-    "write-yaml": "^1.0.0"
+    "@form8ion/project": "^19.0.1",
+    "deepmerge": "^4.2.2"
   },
   "devDependencies": {
     "@cucumber/cucumber": "10.9.0",
     "@form8ion/commitlint-config": "1.0.76",
     "@form8ion/eslint-config": "7.0.9",
     "@form8ion/eslint-config-cucumber": "1.4.1",
+    "@form8ion/github": "2.0.0",
     "@form8ion/remark-lint-preset": "6.0.4",
     "@travi/any": "3.1.2",
-    "@travi/github-scaffolder": "10.3.1",
     "ban-sensitive-files": "1.10.5",
     "c8": "10.1.2",
     "chai": "5.1.1",
