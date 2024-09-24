@@ -96,7 +96,12 @@ const {scaffold, extendEslintConfig} = await import('./lib/index.mjs');
     },
     decisions => ({
       ...javascriptPlugin,
-      scaffold: options =>javascriptPlugin.scaffold({...options, decisions, unitTestFrameworks: {}})
+      scaffold: options => javascriptPlugin.scaffold({
+        ...options,
+        decisions,
+        configs: {},
+        plugins: {unitTestFrameworks: {}}
+      })
     })
   );
 })();

@@ -95,8 +95,10 @@ When('the high-level scaffolder is executed', async function () {
       decisions => ({
         scaffold: options => scaffoldJs({
           ...options,
-          unitTestFrameworks: {},
-          packageTypes: {[pluginName]: {scaffolder: scaffoldEslintConfig}},
+          plugins: {
+            unitTestFrameworks: {},
+            packageTypes: {[pluginName]: {scaffold: scaffoldEslintConfig}}
+          },
           configs: {eslint: {scope: `@${any.word()}`}},
           decisions
         })

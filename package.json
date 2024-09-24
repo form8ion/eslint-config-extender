@@ -5,7 +5,7 @@
   "version": "0.0.0-semantically-released",
   "type": "module",
   "engines": {
-    "node": "^18.17.0 || >=20.6.1"
+    "node": "^18.19.0 || ^20.6.1 || >=22"
   },
   "author": "Matt Travi <npm@travi.org> (https://matt.travi.org)",
   "repository": "form8ion/eslint-config-extender",
@@ -55,7 +55,7 @@
   "dependencies": {
     "@form8ion/config-file": "^1.1.2",
     "@form8ion/core": "^4.7.1",
-    "@form8ion/javascript": "^12.0.0",
+    "@form8ion/javascript": "^13.0.0-beta.13",
     "@form8ion/javascript-core": "^11.0.0",
     "@form8ion/project": "^19.0.1",
     "deepmerge": "^4.2.2"
