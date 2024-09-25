@@ -5,7 +5,7 @@
   "version": "0.0.0-semantically-released",
   "type": "module",
   "engines": {
-    "node": "^18.17.0 || >=20.6.1"
+    "node": "^18.19.0 || ^20.6.1 || >=22"
   },
   "author": "Matt Travi <npm@travi.org> (https://matt.travi.org)",
   "repository": "form8ion/eslint-config-extender",
@@ -17,16 +17,16 @@
   "sideEffects": false,
   "scripts": {
     "test": "npm-run-all --print-label build --parallel lint:* --parallel test:*",
-    "lint:lockfile": "lockfile-lint --path package-lock.json --type npm --validate-https --allowed-hosts npm",
+    "lint:lockfile": "lockfile-lint",
     "lint:js": "eslint . --cache",
-    "lint:md": "NODE_OPTIONS=--loader=testdouble remark . --frail",
+    "lint:md": "remark . --frail",
     "pregenerate:md": "run-s build",
-    "generate:md": "NODE_OPTIONS=\"--loader=testdouble --enable-source-maps\" remark . --output",
+    "generate:md": "NODE_OPTIONS=--enable-source-maps remark . --output",
     "lint:sensitive": "ban",
     "pretest:integration:base": "run-s build",
     "lint:gherkin": "gherkin-lint",
     "test:integration": "run-s 'test:integration:base -- --profile noWip'",
-    "test:integration:base": "NODE_OPTIONS=\"--loader=testdouble --enable-source-maps\" DEBUG=any cucumber-js test/integration",
+    "test:integration:base": "NODE_OPTIONS=--enable-source-maps DEBUG=any cucumber-js test/integration",
     "test:integration:debug": "DEBUG=test run-s test:integration",
     "test:integration:wip": "run-s 'test:integration:base -- --profile wip'",
     "test:integration:wip:debug": "DEBUG=test run-s 'test:integration:wip'",
@@ -42,7 +42,8 @@
     "lint:peer": "npm ls >/dev/null",
     "prepare": "husky install",
     "lint:engines": "ls-engines",
-    "lint:publish": "publint --strict"
+    "lint:publish": "publint --strict",
+    "lint:js:fix": "run-s 'lint:js -- --fix'"
   },
   "files": [
     "example.js",
@@ -52,10 +53,11 @@
     "access": "public",
     "provenance": true
   },
+  "packageManager": "npm@10.8.3+sha256.b7dc7eb48d7479b93668e913c7ad686ab2aa71c705d4a56b5323d1bffdba2972",
   "dependencies": {
     "@form8ion/config-file": "^1.1.2",
     "@form8ion/core": "^4.7.1",
-    "@form8ion/javascript": "^12.0.0",
+    "@form8ion/javascript": "^13.0.0-beta.13",
     "@form8ion/javascript-core": "^11.0.0",
     "@form8ion/project": "^19.0.1",
     "deepmerge": "^4.2.2"

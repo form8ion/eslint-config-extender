@@ -96,7 +96,12 @@ const {scaffold, extendEslintConfig} = await import('./lib/index.mjs');
     },
     decisions => ({
       ...javascriptPlugin,
-      scaffold: options =>javascriptPlugin.scaffold({...options, decisions, unitTestFrameworks: {}})
+      scaffold: options => javascriptPlugin.scaffold({
+        ...options,
+        decisions,
+        configs: {},
+        plugins: {unitTestFrameworks: {}}
+      })
     })
   );
 })();
@@ -153,7 +158,7 @@ $ npm test
 
 [license-link]: LICENSE
 
-[license-badge]: https://img.shields.io/github/license/form8ion/eslint-config-extender.svg
+[license-badge]: https://img.shields.io/github/license/form8ion/eslint-config-extender.svg?logo=opensourceinitiative
 
 [npm-link]: https://www.npmjs.com/package/@form8ion/eslint-config-extender
 
