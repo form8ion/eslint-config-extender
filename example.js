@@ -11,7 +11,7 @@ const error = new Error('Command failed with exit code 1: npm ls husky --json');
 error.exitCode = 1;
 error.stdout = JSON.stringify({});
 error.command = 'npm ls husky --json';
-const {default: execa} = await td.replaceEsm('@form8ion/execa-wrapper');
+const {execa} = await td.replaceEsm('execa');
 td.when(execa('. ~/.nvm/nvm.sh && nvm ls-remote --lts', {shell: true}))
   .thenResolve({stdout: ['v16.5.4', ''].join('\n')});
 td.when(execa('. ~/.nvm/nvm.sh && nvm install', {shell: true})).thenReturn({stdout: {pipe: () => undefined}});
