@@ -24,7 +24,7 @@ Before(async function () {
   // https://github.com/tschaub/mock-fs/issues/213#issuecomment-347002795
   await import('validate-npm-package-name'); // eslint-disable-line import/no-extraneous-dependencies
 
-  ({default: this.execa} = (await td.replaceEsm('@form8ion/execa-wrapper')));
+  ({execa: this.execa} = (await td.replaceEsm('execa')));
 
   // eslint-disable-next-line import/no-extraneous-dependencies,import/no-unresolved
   const configExtender = await import('@form8ion/eslint-config-extender');
