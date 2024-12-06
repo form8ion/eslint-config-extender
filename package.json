@@ -75,7 +75,7 @@
     "chai": "5.1.2",
     "cross-env": "7.0.3",
     "cz-conventional-changelog": "3.3.0",
-    "debug": "4.3.7",
+    "debug": "4.4.0",
     "gherkin-lint": "4.2.4",
     "husky": "9.1.7",
     "jest-when": "3.7.0",
