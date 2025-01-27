@@ -5,7 +5,7 @@ import stubbedFs from 'mock-fs';
 import * as td from 'testdouble';
 import any from '@travi/any';
 
-// remark-usage-ignore-next 12
+// remark-usage-ignore-next 13
 const stubbedNodeModules = stubbedFs.load(resolve('node_modules'));
 const error = new Error('Command failed with exit code 1: npm ls husky --json');
 error.exitCode = 1;
@@ -18,6 +18,7 @@ td.when(execa('. ~/.nvm/nvm.sh && nvm install', {shell: true})).thenReturn({stdo
 td.when(execa('npm', ['ls', 'husky', '--json'])).thenReject(error);
 td.when(execa('npm run generate:md && npm test', {shell: true})).thenReturn({stdout: {pipe: () => undefined}});
 td.when(execa('npm', ['whoami'])).thenResolve({stdout: any.word()});
+td.when(execa('npm', ['--version'])).thenResolve({stdout: any.word()});
 
 const {packageManagers} = await import('@form8ion/javascript-core');
 const githubPlugin = await import('@form8ion/github');

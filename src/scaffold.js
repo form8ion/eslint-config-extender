@@ -30,8 +30,7 @@ export default async function ({projectRoot, scope, projectName}) {
 
   return {
     scripts: {'lint:js': 'eslint .'},
-    dependencies: [`@form8ion/${projectName}`],
-    devDependencies: [`@${scope}/eslint-config`],
+    dependencies: {javascript: {production: [`@form8ion/${projectName}`], development: [`@${scope}/eslint-config`]}},
     nextSteps: [
       {summary: 'Save the extended `@form8ion` eslint-config as an exact version'},
       {summary: 'Document saving this config using the dev flag'},

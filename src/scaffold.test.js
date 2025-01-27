@@ -24,7 +24,7 @@ describe('scaffold', () => {
     const configShortName = any.word();
     const projectName = `eslint-config-${configShortName}`;
 
-    const {scripts, dependencies, devDependencies, nextSteps} = await scaffold({projectRoot, projectName, scope});
+    const {scripts, dependencies, nextSteps} = await scaffold({projectRoot, projectName, scope});
 
     expect(write).toHaveBeenCalledWith({
       path: projectRoot,
@@ -47,8 +47,8 @@ describe('scaffold', () => {
 `
     );
     expect(scripts).toEqual({'lint:js': 'eslint .'});
-    expect(dependencies).toEqual([`@form8ion/${projectName}`]);
-    expect(devDependencies).toEqual([`@${scope}/eslint-config`]);
+    expect(dependencies.javascript.production).toEqual([`@form8ion/${projectName}`]);
+    expect(dependencies.javascript.development).toEqual([`@${scope}/eslint-config`]);
     expect(nextSteps).toEqual([
       {summary: 'Save the extended `@form8ion` eslint-config as an exact version'},
       {summary: 'Document saving this config using the dev flag'},

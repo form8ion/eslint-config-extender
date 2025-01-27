@@ -9,7 +9,14 @@ import any from '@travi/any';
 import {After, Before, When} from '@cucumber/cucumber';
 import testDebug from 'debug';
 
-let pluginName, extendEslintConfig, scaffoldEslintConfig, projectQuestionNames, jsQuestionNames, scaffoldJs;
+let pluginName,
+  extendEslintConfig,
+  scaffoldEslintConfig,
+  projectQuestionNames,
+  jsQuestionNames,
+  scaffoldJs,
+  testForJs,
+  liftJs;
 const __dirname = dirname(fileURLToPath(import.meta.url));        // eslint-disable-line no-underscore-dangle
 const debug = testDebug('test');
 
@@ -35,7 +42,7 @@ Before(async function () {
   pluginName = configExtender.PLUGIN_NAME;
   projectQuestionNames = projectScaffolder.questionNames;
   jsQuestionNames = jsPlugin.questionNames;
-  scaffoldJs = jsPlugin.scaffold;
+  ({scaffold: scaffoldJs, test: testForJs, lift: liftJs} = jsPlugin);
 
   stubbedFs({
     node_modules: stubbedFs.load(resolve(__dirname, '../../../../', 'node_modules'))
@@ -101,7 +108,9 @@ When('the high-level scaffolder is executed', async function () {
           },
           configs: {eslint: {scope: `@${any.word()}`}},
           decisions
-        })
+        }),
+        lift: liftJs,
+        test: testForJs
       })
     );
   } catch (e) {

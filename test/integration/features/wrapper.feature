@@ -5,3 +5,4 @@ Feature: wrapper
     And the npm cli is logged in
     When the high-level scaffolder is executed
     Then the proper form8ion config is extended
+    And dependencies are installed
