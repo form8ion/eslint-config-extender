@@ -16,7 +16,8 @@
   "main": "lib/index.mjs",
   "sideEffects": false,
   "scripts": {
-    "test": "npm-run-all --print-label build --parallel lint:* --parallel test:*",
+    "pretest": "run-s build",
+    "test": "npm-run-all --print-label --parallel lint:* --parallel test:*",
     "lint:lockfile": "lockfile-lint",
     "lint:js": "eslint . --cache",
     "lint:md": "remark . --frail",
