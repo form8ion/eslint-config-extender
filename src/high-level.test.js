@@ -4,7 +4,7 @@ import {dialects} from '@form8ion/javascript-core';
 
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import any from '@travi/any';
-import {when} from 'jest-when';
+import {when} from 'vitest-when';
 
 import {PLUGIN_NAME} from './constants.js';
 import extendEslintConfig from './high-level.js';
@@ -32,7 +32,7 @@ describe('high-level scaffolder', () => {
       [javascriptScaffolder.questionNames.CONFIGURE_LINTING]: false,
       [javascriptScaffolder.questionNames.DIALECT]: dialects.COMMON_JS,
       [javascriptScaffolder.questionNames.SHOULD_BE_SCOPED]: true
-    }).mockReturnValue(jsPlugin);
+    }).thenReturn(jsPlugin);
 
     await extendEslintConfig(options, javascriptPluginFactory);
 
