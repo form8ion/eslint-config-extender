@@ -4,6 +4,7 @@ import {resolve} from 'node:path';
 import stubbedFs from 'mock-fs';
 import * as td from 'testdouble';
 import any from '@travi/any';
+import {promptConstants} from '@form8ion/project';
 
 // remark-usage-ignore-next 13
 const stubbedNodeModules = stubbedFs.load(resolve('node_modules'));
@@ -21,7 +22,6 @@ td.when(execa('npm', ['whoami'])).thenResolve({stdout: any.word()});
 td.when(execa('npm', ['--version'])).thenResolve({stdout: any.word()});
 
 const {packageManagers} = await import('@form8ion/javascript-core');
-const githubPlugin = await import('@form8ion/github');
 const {questionNames: projectQuestionNames} = await import('@form8ion/project');
 const javascriptPlugin = await import('@form8ion/javascript');
 const {scaffold, extendEslintConfig} = await import('./lib/index.mjs');
@@ -47,15 +47,6 @@ stubbedFs({node_modules: stubbedNodeModules});
   await extendEslintConfig(
     {
       decisions: {
-        [projectQuestionNames.PROJECT_NAME]: 'eslint-config-foo',
-        [projectQuestionNames.DESCRIPTION]: 'a description of the project',
-        [projectQuestionNames.VISIBILITY]: 'Public',
-        [projectQuestionNames.LICENSE]: 'MIT',
-        [projectQuestionNames.COPYRIGHT_HOLDER]: 'John Smith',
-        [projectQuestionNames.COPYRIGHT_YEAR]: '2022',
-        [projectQuestionNames.GIT_REPO]: true,
-        [projectQuestionNames.REPO_HOST]: 'GitHub',
-        [projectQuestionNames.REPO_OWNER]: 'org-name',
         [javascriptPlugin.questionNames.AUTHOR_NAME]: 'John Smith',
         [javascriptPlugin.questionNames.AUTHOR_EMAIL]: 'john@smith.org',
         [javascriptPlugin.questionNames.AUTHOR_URL]: 'https://smith.org',
@@ -65,7 +56,15 @@ stubbedFs({node_modules: stubbedNodeModules});
         [javascriptPlugin.questionNames.CI_SERVICE]: 'Other',
         [javascriptPlugin.questionNames.PROVIDE_EXAMPLE]: false
       },
-      plugins: {vcsHosts: {GitHub: githubPlugin}}
+      plugins: {
+        vcsHosts: {
+          foo: {
+            scaffold: ({projectName}) => ({
+              vcs: {name: projectName, host: any.url(), owner: any.word(), ssh_url: any.url()}
+            })
+          }
+        }
+      }
     },
     decisions => ({
       ...javascriptPlugin,
@@ -75,6 +74,27 @@ stubbedFs({node_modules: stubbedNodeModules});
         configs: {},
         plugins: {unitTestFrameworks: {}}
       })
-    })
+    }),
+    {
+      prompt: ({id}) => {
+        switch (id) {
+          case promptConstants.ids.BASE_DETAILS:
+            return {
+              [projectQuestionNames.PROJECT_NAME]: 'eslint-config-foo',
+              [projectQuestionNames.DESCRIPTION]: 'a description of the project',
+              [projectQuestionNames.VISIBILITY]: 'Public',
+              [projectQuestionNames.LICENSE]: 'MIT',
+              [projectQuestionNames.COPYRIGHT_HOLDER]: 'John Smith',
+              [projectQuestionNames.COPYRIGHT_YEAR]: '2022'
+            };
+          case promptConstants.ids.GIT_REPOSITORY:
+            return {[projectQuestionNames.GIT_REPO]: true};
+          case promptConstants.ids.REPOSITORY_HOST:
+            return {[projectQuestionNames.REPO_HOST]: 'foo'};
+          default:
+            throw new Error(`Unknown prompt: ${id}`);
+        }
+      }
+    }
   );
 })();
