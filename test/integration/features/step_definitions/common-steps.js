@@ -1,6 +1,6 @@
 import {dirname, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import * as githubPlugin from '@form8ion/github';
+import {promptConstants} from '@form8ion/project';
 
 import stubbedFs from 'mock-fs';
 import nock from 'nock';
@@ -32,6 +32,7 @@ Before(async function () {
   await import('validate-npm-package-name'); // eslint-disable-line import/no-extraneous-dependencies
 
   ({execa: this.execa} = (await td.replaceEsm('execa')));
+  this.git = await td.replaceEsm('simple-git');
 
   // eslint-disable-next-line import/no-extraneous-dependencies,import/no-unresolved
   const configExtender = await import('@form8ion/eslint-config-extender');
@@ -59,7 +60,7 @@ After(() => {
 When('the high-level scaffolder is executed', async function () {
   const {packageManagers} = await import('@form8ion/javascript-core');
 
-  const gitHubVcsHostChoice = 'GitHub';
+  const vcsHostChoice = any.word();
   const visibility = any.fromList(['Public', 'Private']);
   const {scope} = this;
 
@@ -74,18 +75,6 @@ When('the high-level scaffolder is executed', async function () {
     await extendEslintConfig(
       {
         decisions: {
-          [projectQuestionNames.PROJECT_NAME]: this.projectName,
-          [projectQuestionNames.DESCRIPTION]: any.sentence(),
-          [projectQuestionNames.VISIBILITY]: visibility,
-          [projectQuestionNames.GIT_REPO]: true,
-          [projectQuestionNames.REPO_HOST]: gitHubVcsHostChoice,
-          [projectQuestionNames.REPO_OWNER]: any.word(),
-          ...'Public' === visibility && {
-            [projectQuestionNames.LICENSE]: 'MIT',
-            [projectQuestionNames.COPYRIGHT_HOLDER]: any.word(),
-            [projectQuestionNames.COPYRIGHT_YEAR]: 2000
-          },
-          ...'Private' === visibility && {[projectQuestionNames.UNLICENSED]: true},
           [jsQuestionNames.NODE_VERSION_CATEGORY]: 'LTS',
           [jsQuestionNames.AUTHOR_NAME]: any.word(),
           [jsQuestionNames.AUTHOR_EMAIL]: any.email(),
@@ -96,7 +85,13 @@ When('the high-level scaffolder is executed', async function () {
           [jsQuestionNames.PROVIDE_EXAMPLE]: false
         },
         plugins: {
-          vcsHosts: {[gitHubVcsHostChoice]: githubPlugin}
+          vcsHosts: {
+            [vcsHostChoice]: {
+              scaffold: ({projectName}) => ({
+                vcs: {name: projectName, host: any.url(), owner: any.word(), ssh_url: any.url()}
+              })
+            }
+          }
         }
       },
       decisions => ({
@@ -111,7 +106,31 @@ When('the high-level scaffolder is executed', async function () {
         }),
         lift: liftJs,
         test: testForJs
-      })
+      }),
+      {
+        prompt: ({id}) => {
+          switch (id) {
+            case promptConstants.ids.BASE_DETAILS:
+              return {
+                [projectQuestionNames.PROJECT_NAME]: this.projectName,
+                [projectQuestionNames.DESCRIPTION]: any.sentence(),
+                [projectQuestionNames.VISIBILITY]: visibility,
+                ...'Public' === visibility && {
+                  [projectQuestionNames.LICENSE]: 'MIT',
+                  [projectQuestionNames.COPYRIGHT_HOLDER]: any.word(),
+                  [projectQuestionNames.COPYRIGHT_YEAR]: 2000
+                },
+                ...'Private' === visibility && {[projectQuestionNames.UNLICENSED]: true}
+              };
+            case promptConstants.ids.GIT_REPOSITORY:
+              return {[projectQuestionNames.GIT_REPO]: true};
+            case promptConstants.ids.REPOSITORY_HOST:
+              return {[projectQuestionNames.REPO_HOST]: vcsHostChoice};
+            default:
+              throw new Error(`Unknown prompt: ${id}`);
+          }
+        }
+      }
     );
   } catch (e) {
     debug(e);
