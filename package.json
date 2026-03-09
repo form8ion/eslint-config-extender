@@ -55,7 +55,7 @@
     "access": "public",
     "provenance": true
   },
-  "packageManager": "npm@11.7.0+sha512.c22099a6fff8d5b2286c2a09df5352b4858a7c0c716320f58989d60ad8b29ecf2ce6fdfe97ccb41c23ffb1272e1fa079f868487dd6b81d02a2a9e199c095a117",
+  "packageManager": "npm@11.11.0+sha512.f36811c4aae1fde639527368ae44c571d050006a608d67a191f195a801a52637a312d259186254aa3a3799b05335b7390539cf28656d18f0591a1125ba35f973",
   "dependencies": {
     "@form8ion/config-file": "^1.1.2",
     "@form8ion/core": "^4.7.1",
@@ -73,7 +73,7 @@
     "@form8ion/remark-lint-preset": "6.0.7",
     "@travi/any": "3.1.3",
     "ban-sensitive-files": "1.10.11",
-    "c8": "10.1.3",
+    "c8": "11.0.0",
     "chai": "6.2.2",
     "cross-env": "10.1.0",
     "cz-conventional-changelog": "3.3.0",
@@ -81,7 +81,7 @@
     "gherkin-lint": "4.2.4",
     "husky": "9.1.7",
     "js-yaml": "4.1.1",
-    "lockfile-lint": "4.14.1",
+    "lockfile-lint": "5.0.0",
     "ls-engines": "0.9.4",
     "mock-fs": "5.5.0",
     "nock": "14.0.11",
