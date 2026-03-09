@@ -1,22 +1,22 @@
 import deepmerge from 'deepmerge';
 import {questionNames as jsQuestionNames} from '@form8ion/javascript';
 import {dialects} from '@form8ion/javascript-core';
-import {questionNames as projectQuestionNames, scaffold} from '@form8ion/project';
+import {scaffold} from '@form8ion/project';
 
-import {PLUGIN_NAME} from './constants.js';
+import {JAVASCRIPT_LANGUAGE_CHOICE, PLUGIN_NAME} from './constants.js';
+import injectLanguageChoiceIntoPrompt from './language-handler-prompt.js';
 
-export default function (options, javascriptPluginFactory) {
-  const javaScriptLanguageChoice = 'JavaScript';
+export default function extendEslintConfig(options, javascriptPluginFactory, dependencies) {
+  const {decisions, ...otherOptions} = options;
 
   return scaffold(
     deepmerge(
-      options,
+      otherOptions,
       {
-        decisions: {[projectQuestionNames.PROJECT_LANGUAGE]: javaScriptLanguageChoice},
         plugins: {
           languages: {
-            [javaScriptLanguageChoice]: javascriptPluginFactory({
-              ...options.decisions,
+            [JAVASCRIPT_LANGUAGE_CHOICE]: javascriptPluginFactory({
+              ...decisions,
               [jsQuestionNames.PROJECT_TYPE]: 'Package',
               [jsQuestionNames.PROJECT_TYPE_CHOICE]: PLUGIN_NAME,
               [jsQuestionNames.UNIT_TESTS]: false,
@@ -28,6 +28,10 @@ export default function (options, javascriptPluginFactory) {
           }
         }
       }
-    )
+    ),
+    {
+      ...dependencies,
+      prompt: injectLanguageChoiceIntoPrompt(dependencies.prompt)
+    }
   );
 }
