@@ -93,7 +93,7 @@
     "rimraf": "6.1.3",
     "rollup": "4.59.0",
     "rollup-plugin-auto-external": "2.0.0",
-    "simple-git": "3.32.3",
+    "simple-git": "3.33.0",
     "testdouble": "3.20.2",
     "vitest": "4.0.18",
     "vitest-when": "0.10.0"
