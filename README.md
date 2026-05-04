@@ -154,7 +154,7 @@ $ npm test
 
 [coverage-link]: https://codecov.io/github/form8ion/eslint-config-extender
 
-[coverage-badge]: https://img.shields.io/codecov/c/github/form8ion/eslint-config-extender?logo=codecov
+[coverage-badge]: https://img.shields.io/codecov/c/github/form8ion/eslint-config-extender/master?logo=codecov
 
 [license-link]: LICENSE
 
