@@ -61,7 +61,7 @@
     "@form8ion/core": "^4.7.1",
     "@form8ion/javascript": "^15.0.0",
     "@form8ion/javascript-core": "^12.0.0",
-    "@form8ion/project": "22.0.0-beta.9",
+    "@form8ion/project": "22.0.0-beta.10",
     "deepmerge": "^4.2.2"
   },
   "devDependencies": {
