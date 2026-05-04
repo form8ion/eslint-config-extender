@@ -28,7 +28,7 @@
     "lint:gherkin": "gherkin-lint",
     "test:integration": "run-s 'test:integration:base -- --profile noWip'",
     "test:integration:base": "NODE_OPTIONS=--enable-source-maps DEBUG=any cucumber-js test/integration",
-    "test:integration:debug": "DEBUG=test run-s test:integration",
+    "test:integration:debug": "DEBUG=test:* run-s test:integration",
     "test:integration:wip": "run-s 'test:integration:base -- --profile wip'",
     "test:integration:wip:debug": "DEBUG=test run-s 'test:integration:wip'",
     "test:integration:focus": "run-s 'test:integration:base -- --profile focus'",
@@ -61,7 +61,7 @@
     "@form8ion/core": "^4.7.1",
     "@form8ion/javascript": "^15.0.0",
     "@form8ion/javascript-core": "^12.0.0",
-    "@form8ion/project": "22.0.0-beta.10",
+    "@form8ion/project": "22.0.0-beta.11",
     "deepmerge": "^4.2.2"
   },
   "devDependencies": {

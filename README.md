@@ -46,8 +46,11 @@ $ npm install @form8ion/eslint-config-extender --save-prod
 #### Import
 
 ```javascript
+import {promptConstants} from '@form8ion/project';
+```
+
+```javascript
 const {packageManagers} = await import('@form8ion/javascript-core');
-const githubPlugin = await import('@form8ion/github');
 const {questionNames: projectQuestionNames} = await import('@form8ion/project');
 const javascriptPlugin = await import('@form8ion/javascript');
 const {scaffold, extendEslintConfig} = await import('./lib/index.mjs');
@@ -74,15 +77,6 @@ const {scaffold, extendEslintConfig} = await import('./lib/index.mjs');
   await extendEslintConfig(
     {
       decisions: {
-        [projectQuestionNames.PROJECT_NAME]: 'eslint-config-foo',
-        [projectQuestionNames.DESCRIPTION]: 'a description of the project',
-        [projectQuestionNames.VISIBILITY]: 'Public',
-        [projectQuestionNames.LICENSE]: 'MIT',
-        [projectQuestionNames.COPYRIGHT_HOLDER]: 'John Smith',
-        [projectQuestionNames.COPYRIGHT_YEAR]: '2022',
-        [projectQuestionNames.GIT_REPO]: true,
-        [projectQuestionNames.REPO_HOST]: 'GitHub',
-        [projectQuestionNames.REPO_OWNER]: 'org-name',
         [javascriptPlugin.questionNames.AUTHOR_NAME]: 'John Smith',
         [javascriptPlugin.questionNames.AUTHOR_EMAIL]: 'john@smith.org',
         [javascriptPlugin.questionNames.AUTHOR_URL]: 'https://smith.org',
@@ -92,7 +86,15 @@ const {scaffold, extendEslintConfig} = await import('./lib/index.mjs');
         [javascriptPlugin.questionNames.CI_SERVICE]: 'Other',
         [javascriptPlugin.questionNames.PROVIDE_EXAMPLE]: false
       },
-      plugins: {vcsHosts: {GitHub: githubPlugin}}
+      plugins: {
+        vcsHosts: {
+          foo: {
+            scaffold: ({projectName}) => ({
+              vcs: {name: projectName, host: any.url(), owner: any.word(), ssh_url: any.url()}
+            })
+          }
+        }
+      }
     },
     decisions => ({
       ...javascriptPlugin,
@@ -102,7 +104,34 @@ const {scaffold, extendEslintConfig} = await import('./lib/index.mjs');
         configs: {},
         plugins: {unitTestFrameworks: {}}
       })
-    })
+    }),
+    {
+      prompt: ({id}) => {
+        switch (id) {
+          case promptConstants.ids.BASE_DETAILS:
+            return {
+              [projectQuestionNames.PROJECT_NAME]: 'eslint-config-foo',
+              [projectQuestionNames.DESCRIPTION]: 'a description of the project',
+              [projectQuestionNames.VISIBILITY]: 'Public',
+              [projectQuestionNames.LICENSE]: 'MIT',
+              [projectQuestionNames.COPYRIGHT_HOLDER]: 'John Smith',
+              [projectQuestionNames.COPYRIGHT_YEAR]: '2022'
+            };
+          case promptConstants.ids.GIT_REPOSITORY:
+            return {[projectQuestionNames.GIT_REPO]: true};
+          case promptConstants.ids.REPOSITORY_HOST:
+            return {[projectQuestionNames.REPO_HOST]: 'foo'};
+          default:
+            throw new Error(`Unknown prompt: ${id}`);
+        }
+      },
+      logger: {
+        info: () => undefined,
+        success: () => undefined,
+        warn: () => undefined,
+        error: () => undefined
+      }
+    }
   );
 })();
 ```

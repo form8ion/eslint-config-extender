@@ -94,6 +94,12 @@ stubbedFs({node_modules: stubbedNodeModules});
           default:
             throw new Error(`Unknown prompt: ${id}`);
         }
+      },
+      logger: {
+        info: () => undefined,
+        success: () => undefined,
+        warn: () => undefined,
+        error: () => undefined
       }
     }
   );

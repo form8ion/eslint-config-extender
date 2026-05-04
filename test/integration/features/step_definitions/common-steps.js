@@ -18,7 +18,13 @@ let pluginName,
   testForJs,
   liftJs;
 const __dirname = dirname(fileURLToPath(import.meta.url));        // eslint-disable-line no-underscore-dangle
-const debug = testDebug('test');
+const debug = testDebug('test:common-steps');
+const logger = {
+  info: debug,
+  success: debug,
+  warn: debug,
+  error: debug
+};
 
 Before(async function () {
   this.configName = any.word();
@@ -129,7 +135,8 @@ When('the high-level scaffolder is executed', async function () {
             default:
               throw new Error(`Unknown prompt: ${id}`);
           }
-        }
+        },
+        logger
       }
     );
   } catch (e) {
