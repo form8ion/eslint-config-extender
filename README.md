@@ -179,11 +179,11 @@ $ npm test
 
 [renovate-link]: https://renovatebot.com
 
-[renovate-badge]: https://img.shields.io/badge/renovate-enabled-brightgreen.svg?logo=renovatebot
+[renovate-badge]: https://img.shields.io/badge/renovate-enabled-brightgreen.svg?logo=renovate
 
 [coverage-link]: https://codecov.io/github/form8ion/eslint-config-extender
 
-[coverage-badge]: https://img.shields.io/codecov/c/github/form8ion/eslint-config-extender?logo=codecov
+[coverage-badge]: https://img.shields.io/codecov/c/github/form8ion/eslint-config-extender/master?logo=codecov
 
 [license-link]: LICENSE
 
