@@ -12,7 +12,6 @@ import testDebug from 'debug';
 let pluginName,
   extendEslintConfig,
   scaffoldEslintConfig,
-  projectQuestionNames,
   jsQuestionNames,
   scaffoldJs,
   testForJs,
@@ -42,12 +41,10 @@ Before(async function () {
 
   // eslint-disable-next-line import/no-extraneous-dependencies,import/no-unresolved
   const configExtender = await import('@form8ion/eslint-config-extender');
-  const projectScaffolder = await import('@form8ion/project');
   const jsPlugin = await import('@form8ion/javascript');
   extendEslintConfig = configExtender.extendEslintConfig;
   scaffoldEslintConfig = configExtender.scaffold;
   pluginName = configExtender.PLUGIN_NAME;
-  projectQuestionNames = projectScaffolder.questionNames;
   jsQuestionNames = jsPlugin.questionNames;
   ({scaffold: scaffoldJs, test: testForJs, lift: liftJs} = jsPlugin);
 
@@ -115,19 +112,32 @@ When('the high-level scaffolder is executed', async function () {
       }),
       {
         prompt: ({id}) => {
+          const {questionNames: projectQuestionNames, ids} = promptConstants;
+          const baseDetailsPromptId = ids.BASE_DETAILS;
+
           switch (id) {
-            case promptConstants.ids.BASE_DETAILS:
+            case baseDetailsPromptId: {
+              const {
+                PROJECT_NAME,
+                LICENSE,
+                VISIBILITY,
+                DESCRIPTION,
+                COPYRIGHT_HOLDER,
+                COPYRIGHT_YEAR
+              } = projectQuestionNames[baseDetailsPromptId];
+
               return {
-                [projectQuestionNames.PROJECT_NAME]: this.projectName,
-                [projectQuestionNames.DESCRIPTION]: any.sentence(),
-                [projectQuestionNames.VISIBILITY]: visibility,
+                [PROJECT_NAME]: this.projectName,
+                [DESCRIPTION]: any.sentence(),
+                [VISIBILITY]: visibility,
                 ...'Public' === visibility && {
-                  [projectQuestionNames.LICENSE]: 'MIT',
-                  [projectQuestionNames.COPYRIGHT_HOLDER]: any.word(),
-                  [projectQuestionNames.COPYRIGHT_YEAR]: 2000
+                  [LICENSE]: 'MIT',
+                  [COPYRIGHT_HOLDER]: any.word(),
+                  [COPYRIGHT_YEAR]: 2000
                 },
                 ...'Private' === visibility && {[projectQuestionNames.UNLICENSED]: true}
               };
+            }
             case promptConstants.ids.GIT_REPOSITORY:
               return {[projectQuestionNames.GIT_REPO]: true};
             case promptConstants.ids.REPOSITORY_HOST:

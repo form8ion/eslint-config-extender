@@ -47,13 +47,12 @@ $ npm install @form8ion/eslint-config-extender --save-prod
 
 ```javascript
 import {promptConstants} from '@form8ion/project';
+import {packageManagers} from '@form8ion/javascript-core';
 ```
 
 ```javascript
-const {packageManagers} = await import('@form8ion/javascript-core');
-const {questionNames: projectQuestionNames} = await import('@form8ion/project');
 const javascriptPlugin = await import('@form8ion/javascript');
-const {scaffold, extendEslintConfig} = await import('./lib/index.mjs');
+const {scaffold, extendEslintConfig} = await import('@form8ion/eslint-config-extender');
 ```
 
 #### Execute
@@ -107,16 +106,29 @@ const {scaffold, extendEslintConfig} = await import('./lib/index.mjs');
     }),
     {
       prompt: ({id}) => {
+        const {questionNames: projectQuestionNames, ids} = promptConstants;
+        const baseDetailsPromptId = ids.BASE_DETAILS;
+
         switch (id) {
-          case promptConstants.ids.BASE_DETAILS:
+          case promptConstants.ids.BASE_DETAILS: {
+            const {
+              PROJECT_NAME,
+              LICENSE,
+              VISIBILITY,
+              DESCRIPTION,
+              COPYRIGHT_HOLDER,
+              COPYRIGHT_YEAR
+            } = projectQuestionNames[baseDetailsPromptId];
+
             return {
-              [projectQuestionNames.PROJECT_NAME]: 'eslint-config-foo',
-              [projectQuestionNames.DESCRIPTION]: 'a description of the project',
-              [projectQuestionNames.VISIBILITY]: 'Public',
-              [projectQuestionNames.LICENSE]: 'MIT',
-              [projectQuestionNames.COPYRIGHT_HOLDER]: 'John Smith',
-              [projectQuestionNames.COPYRIGHT_YEAR]: '2022'
+              [PROJECT_NAME]: 'eslint-config-foo',
+              [DESCRIPTION]: 'a description of the project',
+              [VISIBILITY]: 'Public',
+              [LICENSE]: 'MIT',
+              [COPYRIGHT_HOLDER]: 'John Smith',
+              [COPYRIGHT_YEAR]: '2022'
             };
+          }
           case promptConstants.ids.GIT_REPOSITORY:
             return {[projectQuestionNames.GIT_REPO]: true};
           case promptConstants.ids.REPOSITORY_HOST:

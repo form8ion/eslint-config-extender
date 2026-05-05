@@ -5,6 +5,7 @@ import stubbedFs from 'mock-fs';
 import * as td from 'testdouble';
 import any from '@travi/any';
 import {promptConstants} from '@form8ion/project';
+import {packageManagers} from '@form8ion/javascript-core';
 
 // remark-usage-ignore-next 13
 const stubbedNodeModules = stubbedFs.load(resolve('node_modules'));
@@ -21,8 +22,6 @@ td.when(execa('npm run generate:md && npm test', {shell: true})).thenReturn({std
 td.when(execa('npm', ['whoami'])).thenResolve({stdout: any.word()});
 td.when(execa('npm', ['--version'])).thenResolve({stdout: any.word()});
 
-const {packageManagers} = await import('@form8ion/javascript-core');
-const {questionNames: projectQuestionNames} = await import('@form8ion/project');
 const javascriptPlugin = await import('@form8ion/javascript');
 const {scaffold, extendEslintConfig} = await import('./lib/index.mjs');
 
@@ -77,16 +76,29 @@ stubbedFs({node_modules: stubbedNodeModules});
     }),
     {
       prompt: ({id}) => {
+        const {questionNames: projectQuestionNames, ids} = promptConstants;
+        const baseDetailsPromptId = ids.BASE_DETAILS;
+
         switch (id) {
-          case promptConstants.ids.BASE_DETAILS:
+          case promptConstants.ids.BASE_DETAILS: {
+            const {
+              PROJECT_NAME,
+              LICENSE,
+              VISIBILITY,
+              DESCRIPTION,
+              COPYRIGHT_HOLDER,
+              COPYRIGHT_YEAR
+            } = projectQuestionNames[baseDetailsPromptId];
+
             return {
-              [projectQuestionNames.PROJECT_NAME]: 'eslint-config-foo',
-              [projectQuestionNames.DESCRIPTION]: 'a description of the project',
-              [projectQuestionNames.VISIBILITY]: 'Public',
-              [projectQuestionNames.LICENSE]: 'MIT',
-              [projectQuestionNames.COPYRIGHT_HOLDER]: 'John Smith',
-              [projectQuestionNames.COPYRIGHT_YEAR]: '2022'
+              [PROJECT_NAME]: 'eslint-config-foo',
+              [DESCRIPTION]: 'a description of the project',
+              [VISIBILITY]: 'Public',
+              [LICENSE]: 'MIT',
+              [COPYRIGHT_HOLDER]: 'John Smith',
+              [COPYRIGHT_YEAR]: '2022'
             };
+          }
           case promptConstants.ids.GIT_REPOSITORY:
             return {[projectQuestionNames.GIT_REPO]: true};
           case promptConstants.ids.REPOSITORY_HOST:

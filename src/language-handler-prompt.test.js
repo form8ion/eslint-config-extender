@@ -1,4 +1,4 @@
-import {promptConstants, questionNames as projectQuestionNames} from '@form8ion/project';
+import {promptConstants} from '@form8ion/project';
 
 import {describe, it, vi, expect} from 'vitest';
 import {when} from 'vitest-when';
@@ -18,9 +18,9 @@ describe('language choice handler prompt', () => {
   });
 
   it('should define the language choice as JavaScript for the language handler prompt', async () => {
-    expect(await injectLanguageChoiceIntoPrompt(() => undefined)({
-      ...any.simpleObject(),
-      id: promptConstants.ids.PROJECT_LANGUAGE
-    })).toEqual({[projectQuestionNames.PROJECT_LANGUAGE]: JAVASCRIPT_LANGUAGE_CHOICE});
+    const projectLanguagePromptId = promptConstants.ids.PROJECT_LANGUAGE;
+
+    expect(await injectLanguageChoiceIntoPrompt(() => undefined)({...any.simpleObject(), id: projectLanguagePromptId}))
+      .toEqual({[promptConstants.questionNames[projectLanguagePromptId].PROJECT_LANGUAGE]: JAVASCRIPT_LANGUAGE_CHOICE});
   });
 });
