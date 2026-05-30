@@ -57,8 +57,8 @@
   "packageManager": "npm@11.15.0+sha512.fa4d2d93b9519e93143e70bb913b94ff2ad5fe69c5a0f84943be557cbb59e9fc1bcce55768fb1313f225f4f9f50c78b8f366f2332aa41effd7b10efa98d8d72f",
   "dependencies": {
     "@form8ion/config-file": "^1.1.2",
-    "@form8ion/core": "^4.7.1",
-    "@form8ion/javascript": "^15.0.0",
+    "@form8ion/core": "^5.0.0-beta.10",
+    "@form8ion/javascript": "^16.0.0-beta.1",
     "@form8ion/javascript-core": "^12.0.0",
     "@form8ion/project": "^22.0.0-beta.19",
     "deepmerge": "^4.2.2"

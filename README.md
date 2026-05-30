@@ -57,6 +57,15 @@ const {scaffold, extendEslintConfig} = await import('@form8ion/eslint-config-ext
 
 #### Execute
 
+```javascript
+const logger = {
+  info: () => undefined,
+  success: () => undefined,
+  warn: () => undefined,
+  error: () => undefined
+};
+```
+
 ##### Scaffolder Plugin
 
 ```javascript
@@ -102,7 +111,9 @@ const {scaffold, extendEslintConfig} = await import('@form8ion/eslint-config-ext
         decisions,
         configs: {},
         plugins: {unitTestFrameworks: {}}
-      })
+      }, {logger}),
+      lift: options => javascriptPlugin.lift(options, {logger}),
+      test: options => javascriptPlugin.test(options, {logger})
     }),
     {
       prompt: ({id}) => {
@@ -123,7 +134,7 @@ const {scaffold, extendEslintConfig} = await import('@form8ion/eslint-config-ext
             return {
               [PROJECT_NAME]: 'eslint-config-foo',
               [DESCRIPTION]: 'a description of the project',
-              [VISIBILITY]: 'Public',
+              [VISIBILITY]: 'OSS',
               [LICENSE]: 'MIT',
               [COPYRIGHT_HOLDER]: 'John Smith',
               [COPYRIGHT_YEAR]: '2022'
@@ -137,12 +148,7 @@ const {scaffold, extendEslintConfig} = await import('@form8ion/eslint-config-ext
             throw new Error(`Unknown prompt: ${id}`);
         }
       },
-      logger: {
-        info: () => undefined,
-        success: () => undefined,
-        warn: () => undefined,
-        error: () => undefined
-      }
+      logger
     }
   );
 })();

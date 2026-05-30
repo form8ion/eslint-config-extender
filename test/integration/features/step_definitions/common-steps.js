@@ -64,7 +64,7 @@ When('the high-level scaffolder is executed', async function () {
   const {packageManagers} = await import('@form8ion/javascript-core');
 
   const vcsHostChoice = any.word();
-  const visibility = any.fromList(['Public', 'Private']);
+  const visibility = any.fromList(['OSS', 'ISS', 'CS']);
   const {scope} = this;
 
   const error = new Error('Command failed with exit code 1: npm ls husky --json');
@@ -106,9 +106,9 @@ When('the high-level scaffolder is executed', async function () {
           },
           configs: {eslint: {scope: `@${any.word()}`}},
           decisions
-        }),
-        lift: liftJs,
-        test: testForJs
+        }, {logger}),
+        lift: options => liftJs(options, {logger}),
+        test: options => testForJs(options, {logger})
       }),
       {
         prompt: ({id}) => {
@@ -130,12 +130,12 @@ When('the high-level scaffolder is executed', async function () {
                 [PROJECT_NAME]: this.projectName,
                 [DESCRIPTION]: any.sentence(),
                 [VISIBILITY]: visibility,
-                ...'Public' === visibility && {
+                ...'OSS' === visibility && {
                   [LICENSE]: 'MIT',
                   [COPYRIGHT_HOLDER]: any.word(),
                   [COPYRIGHT_YEAR]: 2000
                 },
-                ...'Private' === visibility && {[projectQuestionNames.UNLICENSED]: true}
+                ...['ISS', 'CS'].includes(visibility) && {[projectQuestionNames.UNLICENSED]: true}
               };
             }
             case promptConstants.ids.GIT_REPOSITORY:

@@ -30,6 +30,13 @@ stubbedFs({node_modules: stubbedNodeModules});
 
 // #### Execute
 
+const logger = {
+  info: () => undefined,
+  success: () => undefined,
+  warn: () => undefined,
+  error: () => undefined
+};
+
 // ##### Scaffolder Plugin
 
 (async () => {
@@ -72,7 +79,9 @@ stubbedFs({node_modules: stubbedNodeModules});
         decisions,
         configs: {},
         plugins: {unitTestFrameworks: {}}
-      })
+      }, {logger}),
+      lift: options => javascriptPlugin.lift(options, {logger}),
+      test: options => javascriptPlugin.test(options, {logger})
     }),
     {
       prompt: ({id}) => {
@@ -93,7 +102,7 @@ stubbedFs({node_modules: stubbedNodeModules});
             return {
               [PROJECT_NAME]: 'eslint-config-foo',
               [DESCRIPTION]: 'a description of the project',
-              [VISIBILITY]: 'Public',
+              [VISIBILITY]: 'OSS',
               [LICENSE]: 'MIT',
               [COPYRIGHT_HOLDER]: 'John Smith',
               [COPYRIGHT_YEAR]: '2022'
@@ -107,12 +116,7 @@ stubbedFs({node_modules: stubbedNodeModules});
             throw new Error(`Unknown prompt: ${id}`);
         }
       },
-      logger: {
-        info: () => undefined,
-        success: () => undefined,
-        warn: () => undefined,
-        error: () => undefined
-      }
+      logger
     }
   );
 })();
