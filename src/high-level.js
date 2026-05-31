@@ -24,7 +24,7 @@ export default function extendEslintConfig(options, javascriptPluginFactory, dep
               [jsQuestionNames.CONFIGURE_LINTING]: false,
               [jsQuestionNames.DIALECT]: dialects.COMMON_JS,
               [jsQuestionNames.SHOULD_BE_SCOPED]: true
-            })
+            }, dependencies)
           }
         }
       }

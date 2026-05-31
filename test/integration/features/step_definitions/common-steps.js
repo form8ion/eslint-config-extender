@@ -97,7 +97,7 @@ When('the high-level scaffolder is executed', async function () {
           }
         }
       },
-      decisions => ({
+      (decisions, dependencies) => ({
         scaffold: options => scaffoldJs({
           ...options,
           plugins: {
@@ -106,9 +106,9 @@ When('the high-level scaffolder is executed', async function () {
           },
           configs: {eslint: {scope: `@${any.word()}`}},
           decisions
-        }, {logger}),
-        lift: options => liftJs(options, {logger}),
-        test: options => testForJs(options, {logger})
+        }, dependencies),
+        lift: options => liftJs(options, dependencies),
+        test: options => testForJs(options, dependencies)
       }),
       {
         prompt: ({id}) => {

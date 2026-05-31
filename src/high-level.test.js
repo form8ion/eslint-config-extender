@@ -32,7 +32,7 @@ describe('high-level scaffolder', () => {
       [javascriptScaffolder.questionNames.CONFIGURE_LINTING]: false,
       [javascriptScaffolder.questionNames.DIALECT]: dialects.COMMON_JS,
       [javascriptScaffolder.questionNames.SHOULD_BE_SCOPED]: true
-    }).thenReturn(jsPlugin);
+    }, dependencies).thenReturn(jsPlugin);
     when(injectLanguageChoiceIntoPrompt).calledWith(prompt).thenReturn(enhancedPrompt);
 
     await extendEslintConfig(options, javascriptPluginFactory, dependencies);
