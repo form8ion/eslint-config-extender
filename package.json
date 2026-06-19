@@ -71,7 +71,7 @@
     "@form8ion/eslint-config-vitest": "1.1.0",
     "@form8ion/remark-lint-preset": "6.0.7",
     "@travi/any": "3.3.0",
-    "@vitest/coverage-v8": "4.1.8",
+    "@vitest/coverage-v8": "4.1.9",
     "ban-sensitive-files": "1.10.11",
     "chai": "6.2.2",
     "cz-conventional-changelog": "3.3.0",
@@ -93,7 +93,7 @@
     "rollup-plugin-auto-external": "2.0.0",
     "simple-git": "3.36.0",
     "testdouble": "3.20.2",
-    "vitest": "4.1.8",
+    "vitest": "4.1.9",
     "vitest-when": "0.10.0"
   }
 }
