@@ -61,9 +61,9 @@
   "dependencies": {
     "@form8ion/config-file": "^1.1.2",
     "@form8ion/core": "^5.0.0-beta.10",
-    "@form8ion/javascript": "^16.0.0-beta.1",
+    "@form8ion/javascript": "^16.0.0-beta.14",
     "@form8ion/javascript-core": "^13.0.0",
-    "@form8ion/project": "^22.0.0-beta.19",
+    "@form8ion/project": "^22.0.0-beta.24",
     "deepmerge": "^4.2.2"
   },
   "devDependencies": {
