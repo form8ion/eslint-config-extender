@@ -79,7 +79,7 @@
     "debug": "4.4.3",
     "gplint": "2.5.2",
     "husky": "9.1.7",
-    "js-yaml": "5.2.0",
+    "js-yaml": "5.2.1",
     "lockfile-lint": "5.0.0",
     "ls-engines": "0.9.4",
     "mock-fs": "5.5.0",
