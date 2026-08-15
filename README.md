@@ -82,18 +82,41 @@ const logger = {
 
 ```javascript
 (async () => {
+  const {questionNames: jsQuestionNamesByPromptId, ids: jsPromptIds} = javascriptPlugin.promptConstants;
+  const {questionNames: projectQuestionNamesByPromptId, ids: projectPromptIds} = promptConstants;
+
+  const {
+    PROJECT_NAME, LICENSE, VISIBILITY, DESCRIPTION, COPYRIGHT_HOLDER, COPYRIGHT_YEAR
+  } = projectQuestionNamesByPromptId[projectPromptIds.BASE_DETAILS];
+  const {GIT_REPO} = projectQuestionNamesByPromptId[projectPromptIds.GIT_REPOSITORY];
+  const {REPO_HOST} = projectQuestionNamesByPromptId[projectPromptIds.REPOSITORY_HOST];
+  const {
+    AUTHOR_NAME, AUTHOR_EMAIL, AUTHOR_URL, SCOPE, PACKAGE_MANAGER, NODE_VERSION_CATEGORY, PROVIDE_EXAMPLE
+  } = jsQuestionNamesByPromptId[jsPromptIds.BASE_DETAILS];
+```
+
+```javascript
+  const decisions = {
+    [PROJECT_NAME]: 'eslint-config-foo',
+    [DESCRIPTION]: 'a description of the project',
+    [VISIBILITY]: 'OSS',
+    [LICENSE]: 'MIT',
+    [COPYRIGHT_HOLDER]: 'John Smith',
+    [COPYRIGHT_YEAR]: '2022',
+    [GIT_REPO]: true,
+    [REPO_HOST]: 'foo',
+    [AUTHOR_NAME]: 'John Smith',
+    [AUTHOR_EMAIL]: 'john@smith.org',
+    [AUTHOR_URL]: 'https://smith.org',
+    [SCOPE]: 'org-name',
+    [PACKAGE_MANAGER]: packageManagers.NPM,
+    [NODE_VERSION_CATEGORY]: 'LTS',
+    [PROVIDE_EXAMPLE]: false
+  };
+  const prompt = ({questions}) => Object.fromEntries(questions.map(({name}) => [name, decisions[name]]));
+
   await extendEslintConfig(
     {
-      decisions: {
-        [javascriptPlugin.questionNames.AUTHOR_NAME]: 'John Smith',
-        [javascriptPlugin.questionNames.AUTHOR_EMAIL]: 'john@smith.org',
-        [javascriptPlugin.questionNames.AUTHOR_URL]: 'https://smith.org',
-        [javascriptPlugin.questionNames.SCOPE]: 'org-name',
-        [javascriptPlugin.questionNames.PACKAGE_MANAGER]: packageManagers.NPM,
-        [javascriptPlugin.questionNames.NODE_VERSION_CATEGORY]: 'LTS',
-        [javascriptPlugin.questionNames.CI_SERVICE]: 'Other',
-        [javascriptPlugin.questionNames.PROVIDE_EXAMPLE]: false
-      },
       plugins: {
         vcsHosts: {
           foo: {
@@ -104,52 +127,17 @@ const logger = {
         }
       }
     },
-    decisions => ({
+    dependencies => ({
       ...javascriptPlugin,
       scaffold: options => javascriptPlugin.scaffold({
         ...options,
-        decisions,
         configs: {},
         plugins: {unitTestFrameworks: {}}
-      }, {logger}),
-      lift: options => javascriptPlugin.lift(options, {logger}),
-      test: options => javascriptPlugin.test(options, {logger})
+      }, dependencies),
+      lift: options => javascriptPlugin.lift(options, dependencies),
+      test: options => javascriptPlugin.test(options, dependencies)
     }),
-    {
-      prompt: ({id}) => {
-        const {questionNames: projectQuestionNames, ids} = promptConstants;
-        const baseDetailsPromptId = ids.BASE_DETAILS;
-
-        switch (id) {
-          case promptConstants.ids.BASE_DETAILS: {
-            const {
-              PROJECT_NAME,
-              LICENSE,
-              VISIBILITY,
-              DESCRIPTION,
-              COPYRIGHT_HOLDER,
-              COPYRIGHT_YEAR
-            } = projectQuestionNames[baseDetailsPromptId];
-
-            return {
-              [PROJECT_NAME]: 'eslint-config-foo',
-              [DESCRIPTION]: 'a description of the project',
-              [VISIBILITY]: 'OSS',
-              [LICENSE]: 'MIT',
-              [COPYRIGHT_HOLDER]: 'John Smith',
-              [COPYRIGHT_YEAR]: '2022'
-            };
-          }
-          case promptConstants.ids.GIT_REPOSITORY:
-            return {[projectQuestionNames.GIT_REPO]: true};
-          case promptConstants.ids.REPOSITORY_HOST:
-            return {[projectQuestionNames.REPO_HOST]: 'foo'};
-          default:
-            throw new Error(`Unknown prompt: ${id}`);
-        }
-      },
-      logger
-    }
+    {prompt, logger}
   );
 })();
 ```
