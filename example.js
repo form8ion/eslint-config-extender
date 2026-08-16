@@ -53,36 +53,45 @@ const logger = {
   const {questionNames: jsQuestionNamesByPromptId, ids: jsPromptIds} = javascriptPlugin.promptConstants;
   const {questionNames: projectQuestionNamesByPromptId, ids: projectPromptIds} = promptConstants;
 
-  const {
-    PROJECT_NAME, LICENSE, VISIBILITY, DESCRIPTION, COPYRIGHT_HOLDER, COPYRIGHT_YEAR
-  } = projectQuestionNamesByPromptId[projectPromptIds.BASE_DETAILS];
-  const {GIT_REPO} = projectQuestionNamesByPromptId[projectPromptIds.GIT_REPOSITORY];
-  const {REPO_HOST} = projectQuestionNamesByPromptId[projectPromptIds.REPOSITORY_HOST];
-  const {
-    AUTHOR_NAME, AUTHOR_EMAIL, AUTHOR_URL, SCOPE, PACKAGE_MANAGER, NODE_VERSION_CATEGORY, PROVIDE_EXAMPLE
-  } = jsQuestionNamesByPromptId[jsPromptIds.BASE_DETAILS];
+  const prompt = ({id}) => {
+    switch (id) {
+      case projectPromptIds.BASE_DETAILS: {
+        const {
+          PROJECT_NAME, LICENSE, VISIBILITY, DESCRIPTION, COPYRIGHT_HOLDER, COPYRIGHT_YEAR
+        } = projectQuestionNamesByPromptId[projectPromptIds.BASE_DETAILS];
 
-  // remark-usage-ignore-next 2
-  // this package's own prompts, plus the remaining (unforced) javascript BASE_DETAILS answers the
-  // wrapped prompt built by extendEslintConfig delegates back to this same base prompt
-  const decisions = {
-    [PROJECT_NAME]: 'eslint-config-foo',
-    [DESCRIPTION]: 'a description of the project',
-    [VISIBILITY]: 'OSS',
-    [LICENSE]: 'MIT',
-    [COPYRIGHT_HOLDER]: 'John Smith',
-    [COPYRIGHT_YEAR]: '2022',
-    [GIT_REPO]: true,
-    [REPO_HOST]: 'foo',
-    [AUTHOR_NAME]: 'John Smith',
-    [AUTHOR_EMAIL]: 'john@smith.org',
-    [AUTHOR_URL]: 'https://smith.org',
-    [SCOPE]: 'org-name',
-    [PACKAGE_MANAGER]: packageManagers.NPM,
-    [NODE_VERSION_CATEGORY]: 'LTS',
-    [PROVIDE_EXAMPLE]: false
+        return {
+          [PROJECT_NAME]: 'eslint-config-foo',
+          [DESCRIPTION]: 'a description of the project',
+          [VISIBILITY]: 'OSS',
+          [LICENSE]: 'MIT',
+          [COPYRIGHT_HOLDER]: 'John Smith',
+          [COPYRIGHT_YEAR]: '2022'
+        };
+      }
+      case projectPromptIds.GIT_REPOSITORY:
+        return {[projectQuestionNamesByPromptId[projectPromptIds.GIT_REPOSITORY].GIT_REPO]: true};
+      case projectPromptIds.REPOSITORY_HOST:
+        return {[projectQuestionNamesByPromptId[projectPromptIds.REPOSITORY_HOST].REPO_HOST]: 'foo'};
+      case jsPromptIds.JAVASCRIPT_BASE_DETAILS: {
+        const {
+          AUTHOR_NAME, AUTHOR_EMAIL, AUTHOR_URL, SCOPE, PACKAGE_MANAGER, NODE_VERSION_CATEGORY, PROVIDE_EXAMPLE
+        } = jsQuestionNamesByPromptId[jsPromptIds.JAVASCRIPT_BASE_DETAILS];
+
+        return {
+          [AUTHOR_NAME]: 'John Smith',
+          [AUTHOR_EMAIL]: 'john@smith.org',
+          [AUTHOR_URL]: 'https://smith.org',
+          [SCOPE]: 'org-name',
+          [PACKAGE_MANAGER]: packageManagers.NPM,
+          [NODE_VERSION_CATEGORY]: 'LTS',
+          [PROVIDE_EXAMPLE]: false
+        };
+      }
+      default:
+        throw new Error(`Unknown prompt: ${id}`);
+    }
   };
-  const prompt = ({questions}) => Object.fromEntries(questions.map(({name}) => [name, decisions[name]]));
 
   await extendEslintConfig(
     {
