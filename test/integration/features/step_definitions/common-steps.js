@@ -76,38 +76,48 @@ When('the high-level scaffolder is executed', async function () {
 
   td.when(this.execa('npm', ['ls', 'husky', '--json'])).thenReject(error);
 
-  const {
-    PROJECT_NAME, LICENSE, VISIBILITY, DESCRIPTION, COPYRIGHT_HOLDER, COPYRIGHT_YEAR, UNLICENSED
-  } = projectQuestionNamesByPromptId[projectPromptIds.BASE_DETAILS];
-  const {GIT_REPO} = projectQuestionNamesByPromptId[projectPromptIds.GIT_REPOSITORY];
-  const {REPO_HOST} = projectQuestionNamesByPromptId[projectPromptIds.REPOSITORY_HOST];
-  const {
-    NODE_VERSION_CATEGORY, AUTHOR_NAME, AUTHOR_EMAIL, AUTHOR_URL, PACKAGE_MANAGER, SCOPE, PROVIDE_EXAMPLE
-  } = jsQuestionNamesByPromptId[jsPromptIds.BASE_DETAILS];
+  const prompt = ({id}) => {
+    switch (id) {
+      case projectPromptIds.BASE_DETAILS: {
+        const {
+          PROJECT_NAME, LICENSE, VISIBILITY, DESCRIPTION, COPYRIGHT_HOLDER, COPYRIGHT_YEAR, UNLICENSED
+        } = projectQuestionNamesByPromptId[projectPromptIds.BASE_DETAILS];
 
-  // this package's own prompts, plus the remaining (unforced) javascript BASE_DETAILS answers the
-  // wrapped prompt built by extendEslintConfig delegates back to this same base prompt
-  const decisions = {
-    [PROJECT_NAME]: this.projectName,
-    [DESCRIPTION]: any.sentence(),
-    [VISIBILITY]: visibility,
-    ...'OSS' === visibility && {
-      [LICENSE]: 'MIT',
-      [COPYRIGHT_HOLDER]: any.word(),
-      [COPYRIGHT_YEAR]: 2000
-    },
-    ...['ISS', 'CS'].includes(visibility) && {[UNLICENSED]: true},
-    [GIT_REPO]: true,
-    [REPO_HOST]: vcsHostChoice,
-    [NODE_VERSION_CATEGORY]: 'LTS',
-    [AUTHOR_NAME]: any.word(),
-    [AUTHOR_EMAIL]: any.email(),
-    [AUTHOR_URL]: any.url(),
-    [PACKAGE_MANAGER]: packageManagers.NPM,
-    [SCOPE]: scope,
-    [PROVIDE_EXAMPLE]: false
+        return {
+          [PROJECT_NAME]: this.projectName,
+          [DESCRIPTION]: any.sentence(),
+          [VISIBILITY]: visibility,
+          ...'OSS' === visibility && {
+            [LICENSE]: 'MIT',
+            [COPYRIGHT_HOLDER]: any.word(),
+            [COPYRIGHT_YEAR]: 2000
+          },
+          ...['ISS', 'CS'].includes(visibility) && {[UNLICENSED]: true}
+        };
+      }
+      case projectPromptIds.GIT_REPOSITORY:
+        return {[projectQuestionNamesByPromptId[projectPromptIds.GIT_REPOSITORY].GIT_REPO]: true};
+      case projectPromptIds.REPOSITORY_HOST:
+        return {[projectQuestionNamesByPromptId[projectPromptIds.REPOSITORY_HOST].REPO_HOST]: vcsHostChoice};
+      case jsPromptIds.JAVASCRIPT_BASE_DETAILS: {
+        const {
+          NODE_VERSION_CATEGORY, AUTHOR_NAME, AUTHOR_EMAIL, AUTHOR_URL, PACKAGE_MANAGER, SCOPE, PROVIDE_EXAMPLE
+        } = jsQuestionNamesByPromptId[jsPromptIds.JAVASCRIPT_BASE_DETAILS];
+
+        return {
+          [NODE_VERSION_CATEGORY]: 'LTS',
+          [AUTHOR_NAME]: any.word(),
+          [AUTHOR_EMAIL]: any.email(),
+          [AUTHOR_URL]: any.url(),
+          [PACKAGE_MANAGER]: packageManagers.NPM,
+          [SCOPE]: scope,
+          [PROVIDE_EXAMPLE]: false
+        };
+      }
+      default:
+        throw new Error(`Unknown prompt: ${id}`);
+    }
   };
-  const prompt = ({questions}) => Object.fromEntries(questions.map(({name}) => [name, decisions[name]]));
 
   try {
     await extendEslintConfig(

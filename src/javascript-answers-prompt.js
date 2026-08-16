@@ -4,7 +4,7 @@ import {dialects} from '@form8ion/javascript-core';
 import {PLUGIN_NAME} from './constants.js';
 
 const {
-  [jsPromptConstants.ids.BASE_DETAILS]: baseDetailsQuestionNames,
+  [jsPromptConstants.ids.JAVASCRIPT_BASE_DETAILS]: baseDetailsQuestionNames,
   [jsPromptConstants.ids.PROJECT_TYPE_PLUGIN]: projectTypePluginQuestionNames
 } = jsPromptConstants.questionNames;
 
@@ -21,7 +21,7 @@ export default function injectJavascriptAnswersIntoPrompt(prompt) {
   return async promptDetails => {
     const {id, questions} = promptDetails;
 
-    if (jsPromptConstants.ids.BASE_DETAILS === id) {
+    if (jsPromptConstants.ids.JAVASCRIPT_BASE_DETAILS === id) {
       const remainingQuestions = questions.filter(({name}) => !(name in forcedBaseDetailsAnswers));
 
       return {...await prompt({...promptDetails, questions: remainingQuestions}), ...forcedBaseDetailsAnswers};
