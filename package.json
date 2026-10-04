@@ -76,7 +76,7 @@
     "@travi/any": "3.3.0",
     "@vitest/coverage-v8": "4.1.11",
     "ban-sensitive-files": "1.10.11",
-    "chai": "6.2.2",
+    "chai": "6.3.0",
     "cz-conventional-changelog": "3.3.0",
     "debug": "4.4.3",
     "gplint": "2.6.0",
